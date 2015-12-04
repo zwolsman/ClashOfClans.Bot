@@ -66,6 +66,7 @@
     <Compile Include="Data\Csv\CsvPropertyAttribute.cs" />
     <Compile Include="Data\Csv\CsvSerializer.cs" />
     <Compile Include="Data\Csv\CsvTable.cs" />
+    <Compile Include="DateTimeConverter.cs" />
     <Compile Include="KeepAliveManager.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
