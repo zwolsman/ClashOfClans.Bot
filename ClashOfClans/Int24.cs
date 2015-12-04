@@ -35,13 +35,19 @@ namespace ClashOfClans
             => new UInt24((uint)int24._int);
 
         // for lack of extending BitConverter
-        public static explicit operator byte[](Int24 int24)  
-            => new []
+        public static explicit operator byte[](Int24 int24)
+        {
+            var buffer = new[]
             {
                 (byte)(int24._int & 0xFF),
                 (byte)(int24._int >> 8 & 0xFF),
                 (byte)(int24._int >> 16 & 0xFF)
             };
+
+            return BitConverter.IsLittleEndian
+                ? buffer
+                : buffer.Reversed();
+        }
 
         public static Int24 FromBytes(byte[] buf)
         {
