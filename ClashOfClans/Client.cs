@@ -30,14 +30,12 @@ namespace ClashOfClans
 
         public Client()
         {
-#if DEBUG
             var tracer = new TraceAppender();
             var hierarchy = (Hierarchy)LogManager.GetRepository();
             hierarchy.Root.AddAppender(tracer);
             var patternLayout = new PatternLayout { ConversionPattern = "%m%n" };
             tracer.Layout = patternLayout;
             hierarchy.Configured = true;
-#endif
 
             Connection = new Socket(SocketType.Stream, ProtocolType.Tcp);
             KeepAliveManager = new KeepAliveManager(this);
@@ -101,9 +99,24 @@ namespace ClashOfClans
             {
                 logger.InfoFormat("Failed to log in, reason: {0}", ((LoginFailedPacket)e.Packet).FailureReason);
             }
+            if (e.Packet is ChatMessageServerPacket)
+            {
+                ChatMessageServerPacket packet = e.Packet as ChatMessageServerPacket;
+                if (packet.HasClan)
+                {
+                    Console.Write("[");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(packet.ClanName);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("] ");
+                }
+                Console.WriteLine("{0}: {1}", packet.Username, packet.Message);
+            }
            /* IPacket packet = e.Packet;
             Debug.WriteLine(packet);*/
         }
+
+
 
         public void SendPacket(IPacket packet)
         {

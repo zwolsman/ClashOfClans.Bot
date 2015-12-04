@@ -20,7 +20,10 @@ namespace ClashOfClans.ClientInstance
             Client client = new Client();
 
             client.Connect(new IPEndPoint(Dns.GetHostAddresses(server)[0], port));
+            
             Console.WriteLine("Listening");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
             
             
             Thread.Sleep(-1);
