@@ -16,23 +16,7 @@ namespace ClashOfClans.Networking
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(NetworkManager));
         private readonly Pool<SocketAsyncEventArgs> _socketArgsPool ;
-
-        public NetworkManager()
-        {
-            Func<SocketAsyncEventArgs> generator = () =>                                            // if there isn't a item in the back this will be called -> the generator for the events
-            {
-                var args = new SocketAsyncEventArgs();
-
-                args.Completed += AsyncOperationCompleted;
-                BufferManager.SetBuffer(args);                                                      // <-- don't understand yet marvinn stuf
-                PacketToken.Create(args);
-
-                return args;
-            };
-
-            _socketArgsPool = new Pool<SocketAsyncEventArgs>(generator);
-        }
-
+        
         private Crypto Crypto { get; }
         
         private PacketBufferManager BufferManager { get; set; }
@@ -46,6 +30,20 @@ namespace ClashOfClans.Networking
             {
                 throw new ArgumentException(nameof(connection));
             }
+
+            Func<SocketAsyncEventArgs> generator = () =>                                            // if there isn't a item in the back this will be called -> the generator for the events
+            {
+                var args = new SocketAsyncEventArgs();
+
+                args.Completed += AsyncOperationCompleted;
+                BufferManager.SetBuffer(args);                                                      // <-- don't understand yet marvinn stuf
+                PacketToken.Create(args);
+
+                return args;
+            };
+
+            _socketArgsPool = new Pool<SocketAsyncEventArgs>(generator);
+
             Connection = connection;
 
             Crypto = new Crypto();
