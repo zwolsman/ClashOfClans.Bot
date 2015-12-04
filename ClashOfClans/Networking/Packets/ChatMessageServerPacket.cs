@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,41 +23,41 @@ namespace ClashOfClans.Networking.Packets
         public string ClanName;
         public int Unknown3;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
             Message = reader.ReadString();
             Username = reader.ReadString();
 
-            Level = reader.ReadInt32();
-            League = reader.ReadInt32();
+            Level = reader.ReadInt32BigEndian();
+            League = reader.ReadInt32BigEndian();
 
-            UserID = reader.ReadInt64();
-            UserID2 = reader.ReadInt64();
+            UserID = reader.ReadInt64BigEndian();
+            UserID2 = reader.ReadInt64BigEndian();
             HasClan = reader.ReadBoolean();
             if (HasClan)
             {
-                ClanID = reader.ReadInt64();
+                ClanID = reader.ReadInt64BigEndian();
                 ClanName = reader.ReadString();
-                Unknown3 = reader.ReadInt32();
+                Unknown3 = reader.ReadInt32BigEndian();
             }
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteString(Message);
-            writer.WriteString(Username);
+            writer.Write(Message);
+            writer.Write(Username);
 
-            writer.WriteInt32(Level);
-            writer.WriteInt32(League);
+            writer.WriteBigEndian((int)Level);
+            writer.WriteBigEndian((int)League);
 
-            writer.WriteInt64(UserID);
-            writer.WriteInt64(UserID2);
-            writer.WriteBoolean(HasClan);
+            writer.WriteBigEndian((long)UserID);
+            writer.WriteBigEndian((long)UserID2);
+            writer.Write(HasClan);
             if (HasClan)
             {
-                writer.WriteInt64(ClanID);
-                writer.WriteString(ClanName);
-                writer.WriteInt32(Unknown3);
+                writer.WriteBigEndian((long)ClanID);
+                writer.Write(ClanName);
+                writer.WriteBigEndian((int)Unknown3);
             }
         }
     }

@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,19 +72,22 @@
     <Compile Include="Data\Csv\CsvSerializer.cs" />
     <Compile Include="Data\Csv\CsvTable.cs" />
     <Compile Include="DateTimeConverter.cs" />
+    <Compile Include="Int24.cs" />
     <Compile Include="KeepAliveManager.cs" />
     <Compile Include="Logic\Avatar.cs" />
     <Compile Include="Logic\Clan.cs" />
     <Compile Include="Logic\Resource.cs" />
     <Compile Include="Logic\ResourceManager.cs" />
     <Compile Include="Logic\Village.cs" />
+    <Compile Include="Networking\ClashBinaryReader.cs" />
+    <Compile Include="Networking\ClashBinaryWriter.cs" />
+    <Compile Include="Util\BinaryReaderExtensions.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Networking\NetworkManagerSettings.cs" />
     <Compile Include="Networking\PacketBufferManager.cs" />
     <Compile Include="Networking\PacketExtractor.cs" />
-    <Compile Include="Networking\PacketReader.cs" />
     <Compile Include="Networking\PacketReceivedEventArgs.cs" />
     <Compile Include="Networking\Packets\ChatMessageServerPacket.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
@@ -96,12 +100,13 @@
     <Compile Include="Networking\Packets\UnknownPacket.cs" />
     <Compile Include="Networking\Packets\UpdateKeyPacket.cs" />
     <Compile Include="Networking\PacketToken.cs" />
-    <Compile Include="Networking\PacketWriter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Util\BinaryWriterExtensions.cs" />
+    <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

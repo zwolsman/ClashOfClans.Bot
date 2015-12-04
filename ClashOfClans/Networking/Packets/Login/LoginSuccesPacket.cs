@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,56 +30,56 @@ namespace ClashOfClans.Networking.Packets
         public string GooglePlusID;
         public string CountryCode;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
-            UserID = reader.ReadInt64();
-            UserID1 = reader.ReadInt64();
+            UserID = reader.ReadInt64BigEndian();
+            UserID1 = reader.ReadInt64BigEndian();
             UserToken = reader.ReadString();
             FacebookID = reader.ReadString();
             GameCenterID = reader.ReadString();
-            MajorVersion = reader.ReadInt32();
-            MinorVersion = reader.ReadInt32();
-            RevisionVersion = reader.ReadInt32();
+            MajorVersion = reader.ReadInt32BigEndian();
+            MinorVersion = reader.ReadInt32BigEndian();
+            RevisionVersion = reader.ReadInt32BigEndian();
             ServerEnvironment = reader.ReadString();
-            LoginCount = reader.ReadInt32();
-            PlayTime = TimeSpan.FromSeconds(reader.ReadInt32());
+            LoginCount = reader.ReadInt32BigEndian();
+            PlayTime = TimeSpan.FromSeconds(reader.ReadInt32BigEndian());
 
-            Unknown1 = reader.ReadInt32();
+            Unknown1 = reader.ReadInt32BigEndian();
 
             FacebookAppID = reader.ReadString();
             DateLastPlayed = DateTimeConverter.FromJavaTimestamp(double.Parse(reader.ReadString()));
             DateJoined = DateTimeConverter.FromJavaTimestamp(double.Parse(reader.ReadString()));
 
-            Unknown2 = reader.ReadInt32();
+            Unknown2 = reader.ReadInt32BigEndian();
 
             GooglePlusID = reader.ReadString();
             CountryCode = reader.ReadString();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteInt64(UserID);
-            writer.WriteInt64(UserID1);
-            writer.WriteString(UserToken);
-            writer.WriteString(FacebookID);
-            writer.WriteString(GameCenterID);
-            writer.WriteInt32(MajorVersion);
-            writer.WriteInt32(MinorVersion);
-            writer.WriteInt32(RevisionVersion);
-            writer.WriteString(ServerEnvironment);
-            writer.WriteInt32(LoginCount);
-            writer.WriteInt32((int)PlayTime.TotalSeconds);
+            writer.WriteBigEndian((long)UserID);
+            writer.WriteBigEndian((long)UserID1);
+            writer.Write(UserToken);
+            writer.Write(FacebookID);
+            writer.Write(GameCenterID);
+            writer.WriteBigEndian((int)MajorVersion);
+            writer.WriteBigEndian((int)MinorVersion);
+            writer.WriteBigEndian((int)RevisionVersion);
+            writer.Write(ServerEnvironment);
+            writer.WriteBigEndian((int)LoginCount);
+            writer.WriteBigEndian((int)(int)PlayTime.TotalSeconds);
 
-            writer.WriteInt32(Unknown1);
+            writer.WriteBigEndian((int)Unknown1);
 
-            writer.WriteString(FacebookAppID);
-            writer.WriteString(DateTimeConverter.ToJavaTimestamp(DateLastPlayed).ToString()); // should round stuff?
-            writer.WriteString(DateTimeConverter.ToJavaTimestamp(DateJoined).ToString());
+            writer.Write(FacebookAppID);
+            writer.Write(DateTimeConverter.ToJavaTimestamp(DateLastPlayed).ToString()); // should round stuff?
+            writer.Write(DateTimeConverter.ToJavaTimestamp(DateJoined).ToString());
 
-            writer.WriteInt32(Unknown2);
+            writer.WriteBigEndian((int)Unknown2);
 
-            writer.WriteString(GooglePlusID);
-            writer.WriteString(CountryCode);
+            writer.Write(GooglePlusID);
+            writer.Write(CountryCode);
         }
     }
 }

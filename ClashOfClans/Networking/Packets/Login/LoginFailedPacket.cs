@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +34,9 @@ namespace ClashOfClans.Networking.Packets
         public string Unknown3;
         public string Unknown4;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
-            FailureReason = (LoginFailureReason)reader.ReadInt32();
+            FailureReason = (LoginFailureReason)reader.ReadInt32BigEndian();
             var fingerprintJson = reader.ReadString();
            /* if (fingerprintJson != null)
                 Fingerprint = new Fingerprint(fingerprintJson);*/
@@ -42,29 +44,29 @@ namespace ClashOfClans.Networking.Packets
             AssetsRootUrl = reader.ReadString();
             iTunesUrl = reader.ReadString();
             Unknown1 = reader.ReadString();
-            RemainingTime = reader.ReadInt32();
+            RemainingTime = reader.ReadInt32BigEndian();
             Unknown2 = reader.ReadByte();
             CompressedFingerprintJson = reader.ReadByteArray();
             Unknown3 = reader.ReadString();
             Unknown4 = reader.ReadString();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteInt32((int)FailureReason);
+            writer.WriteBigEndian((int)(int)FailureReason);
 /*            if (Fingerprint != null)
-                writer.WriteString(Fingerprint.ToJson());
+                writer.Write(Fingerprint.ToJson());
             else
-                writer.WriteString(null);*/
-            writer.WriteString(HostName);
-            writer.WriteString(AssetsRootUrl);
-            writer.WriteString(iTunesUrl);
-            writer.WriteString(Unknown1);
-            writer.WriteInt32(RemainingTime);
-            writer.WriteByte(Unknown2);
-            writer.WriteByteArray(CompressedFingerprintJson);
-            writer.WriteString(Unknown3);
-            writer.WriteString(Unknown4);
+                writer.Write(null);*/
+            writer.Write(HostName);
+            writer.Write(AssetsRootUrl);
+            writer.Write(iTunesUrl);
+            writer.Write(Unknown1);
+            writer.WriteBigEndian((int)RemainingTime);
+            writer.Write(Unknown2);
+            writer.Write(CompressedFingerprintJson);
+            writer.Write(Unknown3);
+            writer.Write(Unknown4);
             //File.WriteAllBytes("dump", ((MemoryStream)writer.BaseStream).ToArray());
         }
     }
