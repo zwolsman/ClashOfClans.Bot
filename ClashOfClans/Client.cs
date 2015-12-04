@@ -20,6 +20,7 @@ namespace ClashOfClans
     {
         public Socket Connection { get; set; }
         public NetworkManager NetworkManager { get; set; }
+        public KeepAliveManager KeepAliveManager { get; set; }
         public bool Connected => Connection?.Connected ?? false;
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(Client));
@@ -27,6 +28,7 @@ namespace ClashOfClans
 
         public Client()
         {
+
 #if DEBUG
             var tracer = new TraceAppender();
             var hierarchy = (Hierarchy)LogManager.GetRepository();
@@ -37,6 +39,7 @@ namespace ClashOfClans
 #endif
 
             Connection = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            KeepAliveManager = new KeepAliveManager(this);
         }
 
         public void Connect(IPEndPoint endPoint)
@@ -85,6 +88,7 @@ namespace ClashOfClans
                 VendorGUID = "",
                 Seed = NetworkManager.Seed
             });
+            KeepAliveManager.Start();
         }
 
         private void NetworkManager_PacketReceived(object sender, PacketReceivedEventArgs e)

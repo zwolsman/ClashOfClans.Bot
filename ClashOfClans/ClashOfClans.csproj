@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="KeepAliveManager.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
@@ -54,6 +55,8 @@
     <Compile Include="Networking\PacketReader.cs" />
     <Compile Include="Networking\PacketReceivedEventArgs.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
+    <Compile Include="Networking\Packets\KeepAliveRequestPacket.cs" />
+    <Compile Include="Networking\Packets\KeepAliveResponsePacket.cs" />
     <Compile Include="Networking\Packets\LoginRequestPacket.cs" />
     <Compile Include="Networking\Packets\UnknownPacket.cs" />
     <Compile Include="Networking\Packets\UpdateKeyPacket.cs" />
