@@ -22,6 +22,7 @@ namespace ClashOfClans.ClientInstance
             client.Connect(new IPEndPoint(Dns.GetHostAddresses(server)[0], port));
 
             
+            
             Thread.Sleep(-1);
         }
     }

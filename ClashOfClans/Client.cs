@@ -95,6 +95,11 @@ namespace ClashOfClans
         {
             logger.InfoFormat("Recieved packet 0x{0} ({1}) {2}", e.Packet.ID.ToString("x2"), e.Packet.ID, e.Packet);
 
+
+            if (e.Packet is LoginFailedPacket)
+            {
+                logger.InfoFormat("Failed to log in, reason: {0}", ((LoginFailedPacket)e.Packet).FailureReason);
+            }
            /* IPacket packet = e.Packet;
             Debug.WriteLine(packet);*/
         }
