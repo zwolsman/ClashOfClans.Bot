@@ -14,13 +14,13 @@ namespace ClashOfClans.ClientInstance
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Starting up..");
             string server = "gamea.clashofclans.com";
             int port = 9339;
             Client client = new Client();
 
             client.Connect(new IPEndPoint(Dns.GetHostAddresses(server)[0], port));
-
+            Console.WriteLine("Listening");
             
             
             Thread.Sleep(-1);

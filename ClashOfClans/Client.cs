@@ -75,7 +75,7 @@ namespace ClashOfClans
                 ClientMajorVersion = 7,
                 ClientContentVersion = 0,
                 ClientMinorVersion = 200,
-                FingerprintHash = "8771aa1095195c4217bd625d66e120d91e8d15b0",
+                FingerprintHash = "b07b1997df077c85b4863d965aa9f7eb20a0831c",
                 OpenUDID = "563a6f060d8624db",
                 MacAddress = null,
                 DeviceModel = "Nexus 5",
