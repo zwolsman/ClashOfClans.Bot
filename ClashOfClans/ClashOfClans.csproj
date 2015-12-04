@@ -63,8 +63,8 @@
     <Compile Include="Networking\Packets\UpdateKeyPacket.cs" />
     <Compile Include="Networking\PacketToken.cs" />
     <Compile Include="Networking\PacketWriter.cs" />
-    <Compile Include="Networking\SocketAsyncEventArgsPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Pool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
