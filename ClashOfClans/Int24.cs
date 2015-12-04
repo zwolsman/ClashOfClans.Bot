@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 
 namespace ClashOfClans
 {
@@ -27,7 +28,7 @@ namespace ClashOfClans
 
 
         // Output Conversion
-        public static implicit operator Int32(Int24 int24)
+        public static explicit operator Int32(Int24 int24)
             => int24._int;
 
         public static implicit operator UInt24(Int24 int24)
@@ -78,7 +79,7 @@ namespace ClashOfClans
 
 
         // Output Conversion
-        public static implicit operator UInt32(UInt24 uint24)
+        public static explicit operator UInt32(UInt24 uint24)
             => uint24._uint;
 
         public static implicit operator Int24(UInt24 uint24)
@@ -86,12 +87,18 @@ namespace ClashOfClans
 
         // for lack of extending BitConverter
         public static explicit operator byte[] (UInt24 uint24)
-            => new[]
+        {
+            var buffer = new[]
             {
-                (byte)(uint24._uint >> 16 & 0xFF),
+                (byte)(uint24._uint & 0xFF),
                 (byte)(uint24._uint >> 8 & 0xFF),
-                (byte)(uint24._uint & 0xFF)
+                (byte)(uint24._uint >> 16 & 0xFF)
             };
+
+            return BitConverter.IsLittleEndian
+                ? buffer
+                : buffer.Reversed();
+        }
 
         public static UInt24 FromBytes(byte[] buf)
         {

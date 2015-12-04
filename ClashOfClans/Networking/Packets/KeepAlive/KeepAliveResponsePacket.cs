@@ -16,7 +16,7 @@ namespace ClashOfClans.Networking.Packets
 
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
 
         }

@@ -6,7 +6,7 @@ namespace ClashOfClans.Networking.Packets
     {
         ushort ID { get; }
         void ReadPacket(ClashBinaryReader reader);
-        void WritePacket(PacketWriter writer);
+        void WritePacket(ClashBinaryWriter writer);
 
     }
 }

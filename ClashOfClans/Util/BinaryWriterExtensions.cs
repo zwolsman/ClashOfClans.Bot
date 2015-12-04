@@ -17,16 +17,28 @@ namespace ClashOfClans.Util
             ProcessBytes(writer, buffer);
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, Int24 value)
+        public static void Write(this BinaryWriter writer, Int24 value)
         {
             var buffer = (byte[])value;
             ProcessBytes(writer, buffer);
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, UInt24 value)
+        public static void Write(this BinaryWriter writer, UInt24 value)
         {
             var buffer = (byte[])value;
             ProcessBytes(writer, buffer);
+        }
+
+        public static void WriteBigEndian(this BinaryWriter writer, Int24 value)
+        {
+            var buffer = (byte[])value;
+            ProcessBytes(writer, buffer.Reversed());
+        }
+
+        public static void WriteBigEndian(this BinaryWriter writer, UInt24 value)
+        {
+            var buffer = (byte[])value;
+            ProcessBytes(writer, buffer.Reversed());
         }
 
         public static void WriteBigEndian(this BinaryWriter writer, Int32 value)
@@ -40,13 +52,25 @@ namespace ClashOfClans.Util
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);
         }
-        
+
+        public static void WriteBigEndian(this BinaryWriter writer, Int64 value)
+        {
+            var buffer = BitConverter.GetBytes(value);
+            ProcessBytes(writer, buffer);
+        }
+
+        public static void WriteBigEndian(this BinaryWriter writer, UInt64 value)
+        {
+            var buffer = BitConverter.GetBytes(value);
+            ProcessBytes(writer, buffer);
+        }
+
         private static void ProcessBytes(BinaryWriter writer, byte[] buffer)
         {
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(buffer);
 
-            writer.Write(buffer);
+            writer.Write(buffer, 0, buffer.Length);
         }
     }
 }

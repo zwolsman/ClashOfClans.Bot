@@ -267,69 +267,69 @@ namespace ClashOfClans.Networking.Packets
             Unknown28 = reader.ReadInt32BigEndian();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
             var offset = 0x2A;
-          /*  writer.WriteInt32((int)LastVisit.TotalSeconds);
-            writer.WriteInt32(Unknown1);
-            writer.WriteInt32((int)DateTimeConverter.ToUnixTimestamp(Timestamp));
-            writer.WriteInt32(Unknown2);
-            writer.WriteInt64(UserID);
-            writer.WriteInt32((int)ShieldDuration.TotalSeconds);
-            writer.WriteInt32(Unknown3);
-            writer.WriteInt32(Unknown4);
-            writer.WriteBoolean(Compressed);
+          /*  writer.WriteBigEndian((int)(int)LastVisit.TotalSeconds);
+            writer.WriteBigEndian((int)Unknown1);
+            writer.WriteBigEndian((int)(int)DateTimeConverter.ToUnixTimestamp(Timestamp));
+            writer.WriteBigEndian((int)Unknown2);
+            writer.WriteBigEndian((long)UserID);
+            writer.WriteBigEndian((int)(int)ShieldDuration.TotalSeconds);
+            writer.WriteBigEndian((int)Unknown3);
+            writer.WriteBigEndian((int)Unknown4);
+            writer.Write(Compressed);
             Home.Write(writer);
-            writer.WriteInt32(Unknown6);
-            writer.WriteInt64(UserID1);
-            writer.WriteInt64(UserID2);
+            writer.WriteBigEndian((int)Unknown6);
+            writer.WriteBigEndian((long)UserID1);
+            writer.WriteBigEndian((long)UserID2);
 
             if (Avatar.Clan != null)
             {
-                writer.WriteBoolean(true);
-                writer.WriteInt64(Avatar.Clan.ID);
-                writer.WriteString(Avatar.Clan.Name);
-                writer.WriteInt64(Avatar.Clan.Badge);
-                writer.WriteInt32(0); // TODO: Make unknown.
-                writer.WriteInt64(Avatar.Clan.Level);
+                writer.Write(true);
+                writer.WriteBigEndian((long)Avatar.Clan.ID);
+                writer.Write(Avatar.Clan.Name);
+                writer.WriteBigEndian((long)Avatar.Clan.Badge);
+                writer.WriteBigEndian((int)0); // TODO: Make unknown.
+                writer.WriteBigEndian((long)Avatar.Clan.Level);
                 offset += 1;
             }
 
-            writer.WriteBoolean(Unknown7);
+            writer.Write(Unknown7);
             if (Unknown7)
-                writer.WriteInt64(Unknown8);
-            writer.WriteBoolean(Unknown9);
+                writer.WriteBigEndian((long)Unknown8);
+            writer.Write(Unknown9);
             if (Unknown9)
-                writer.WriteInt64(Unknown10);
+                writer.WriteBigEndian((long)Unknown10);
 
             writer.Write(new byte[offset]);
-            writer.WriteInt32(Unknown11);
-            writer.WriteInt32(AllianceCastleLevel);
-            writer.WriteInt32(AllianceCastleUnitCapacity);
-            writer.WriteInt32(AllianceCastleUnitCount);
-            writer.WriteInt32(Avatar.TownHallLevel);
-            writer.WriteString(Avatar.Username);
-            writer.WriteString(FacebookID);
-            writer.WriteInt32(Unknown14);
-            writer.WriteInt32(Unknown15);
-            writer.WriteInt32(Avatar.Trophies);
-            writer.WriteInt32(Avatar.AttacksWon);
-            writer.WriteInt32(Avatar.AttacksLost);
-            writer.WriteInt32(Avatar.DefensesWon);
-            writer.WriteInt32(Avatar.DefensesLost);
-            writer.WriteInt32(Unknown16);
-            writer.WriteInt32(Unknown17);
-            writer.WriteInt32(Unknown18);
-            writer.WriteBoolean(Unknown19);
+            writer.WriteBigEndian((int)Unknown11);
+            writer.WriteBigEndian((int)AllianceCastleLevel);
+            writer.WriteBigEndian((int)AllianceCastleUnitCapacity);
+            writer.WriteBigEndian((int)AllianceCastleUnitCount);
+            writer.WriteBigEndian((int)Avatar.TownHallLevel);
+            writer.Write(Avatar.Username);
+            writer.Write(FacebookID);
+            writer.WriteBigEndian((int)Unknown14);
+            writer.WriteBigEndian((int)Unknown15);
+            writer.WriteBigEndian((int)Avatar.Trophies);
+            writer.WriteBigEndian((int)Avatar.AttacksWon);
+            writer.WriteBigEndian((int)Avatar.AttacksLost);
+            writer.WriteBigEndian((int)Avatar.DefensesWon);
+            writer.WriteBigEndian((int)Avatar.DefensesLost);
+            writer.WriteBigEndian((int)Unknown16);
+            writer.WriteBigEndian((int)Unknown17);
+            writer.WriteBigEndian((int)Unknown18);
+            writer.Write(Unknown19);
             if (Unknown19)
-                writer.WriteInt64(Unknown20);
-            writer.WriteByte(Unknown21);
-            writer.WriteInt32(Unknown22);
-            writer.WriteInt32(Unknown23);
-            writer.WriteInt32(Unknown24);
-            writer.WriteInt32(Unknown25);
+                writer.WriteBigEndian((long)Unknown20);
+            writer.Write(Unknown21);
+            writer.WriteBigEndian((int)Unknown22);
+            writer.WriteBigEndian((int)Unknown23);
+            writer.WriteBigEndian((int)Unknown24);
+            writer.WriteBigEndian((int)Unknown25);
             //for (int i = 0; i < 15; i++)
-            //    writer.WriteInt32(0);*/
+            //    writer.WriteBigEndian((int)0);*/
         }
     }
 }

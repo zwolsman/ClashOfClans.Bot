@@ -56,30 +56,30 @@ namespace ClashOfClans.Networking.Packets
             CountryCode = reader.ReadString();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteInt64(UserID);
-            writer.WriteInt64(UserID1);
-            writer.WriteString(UserToken);
-            writer.WriteString(FacebookID);
-            writer.WriteString(GameCenterID);
-            writer.WriteInt32(MajorVersion);
-            writer.WriteInt32(MinorVersion);
-            writer.WriteInt32(RevisionVersion);
-            writer.WriteString(ServerEnvironment);
-            writer.WriteInt32(LoginCount);
-            writer.WriteInt32((int)PlayTime.TotalSeconds);
+            writer.WriteBigEndian((long)UserID);
+            writer.WriteBigEndian((long)UserID1);
+            writer.Write(UserToken);
+            writer.Write(FacebookID);
+            writer.Write(GameCenterID);
+            writer.WriteBigEndian((int)MajorVersion);
+            writer.WriteBigEndian((int)MinorVersion);
+            writer.WriteBigEndian((int)RevisionVersion);
+            writer.Write(ServerEnvironment);
+            writer.WriteBigEndian((int)LoginCount);
+            writer.WriteBigEndian((int)(int)PlayTime.TotalSeconds);
 
-            writer.WriteInt32(Unknown1);
+            writer.WriteBigEndian((int)Unknown1);
 
-            writer.WriteString(FacebookAppID);
-            writer.WriteString(DateTimeConverter.ToJavaTimestamp(DateLastPlayed).ToString()); // should round stuff?
-            writer.WriteString(DateTimeConverter.ToJavaTimestamp(DateJoined).ToString());
+            writer.Write(FacebookAppID);
+            writer.Write(DateTimeConverter.ToJavaTimestamp(DateLastPlayed).ToString()); // should round stuff?
+            writer.Write(DateTimeConverter.ToJavaTimestamp(DateJoined).ToString());
 
-            writer.WriteInt32(Unknown2);
+            writer.WriteBigEndian((int)Unknown2);
 
-            writer.WriteString(GooglePlusID);
-            writer.WriteString(CountryCode);
+            writer.Write(GooglePlusID);
+            writer.Write(CountryCode);
         }
     }
 }

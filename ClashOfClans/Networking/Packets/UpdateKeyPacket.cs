@@ -20,10 +20,10 @@ namespace ClashOfClans.Networking.Packets
             ScramblerVersion = reader.ReadInt32BigEndian();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteByteArray(Key);
-            writer.WriteInt32(ScramblerVersion);
+            writer.Write(Key);
+            writer.WriteBigEndian((int)ScramblerVersion);
         }
     }
 }

@@ -42,22 +42,22 @@ namespace ClashOfClans.Networking.Packets
             }
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteString(Message);
-            writer.WriteString(Username);
+            writer.Write(Message);
+            writer.Write(Username);
 
-            writer.WriteInt32(Level);
-            writer.WriteInt32(League);
+            writer.WriteBigEndian((int)Level);
+            writer.WriteBigEndian((int)League);
 
-            writer.WriteInt64(UserID);
-            writer.WriteInt64(UserID2);
-            writer.WriteBoolean(HasClan);
+            writer.WriteBigEndian((long)UserID);
+            writer.WriteBigEndian((long)UserID2);
+            writer.Write(HasClan);
             if (HasClan)
             {
-                writer.WriteInt64(ClanID);
-                writer.WriteString(ClanName);
-                writer.WriteInt32(Unknown3);
+                writer.WriteBigEndian((long)ClanID);
+                writer.Write(ClanName);
+                writer.WriteBigEndian((int)Unknown3);
             }
         }
     }

@@ -79,6 +79,7 @@
     <Compile Include="Logic\Resource.cs" />
     <Compile Include="Logic\Village.cs" />
     <Compile Include="Networking\ClashBinaryReader.cs" />
+    <Compile Include="Networking\ClashBinaryWriter.cs" />
     <Compile Include="Util\BinaryReaderExtensions.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Networking\Packets\UnknownPacket.cs" />
     <Compile Include="Networking\Packets\UpdateKeyPacket.cs" />
     <Compile Include="Networking\PacketToken.cs" />
-    <Compile Include="Networking\PacketWriter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

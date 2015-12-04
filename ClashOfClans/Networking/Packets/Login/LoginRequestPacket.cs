@@ -67,33 +67,33 @@ namespace ClashOfClans.Networking.Packets
             Seed = reader.ReadInt32BigEndian();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteInt64(UserID);
-            writer.WriteString(UserToken);
-            writer.WriteInt32(ClientMajorVersion);
-            writer.WriteInt32(ClientContentVersion);
-            writer.WriteInt32(ClientMinorVersion);
-            writer.WriteString(FingerprintHash);
+            writer.WriteBigEndian((long)UserID);
+            writer.Write(UserToken);
+            writer.WriteBigEndian((int)ClientMajorVersion);
+            writer.WriteBigEndian((int)ClientContentVersion);
+            writer.WriteBigEndian((int)ClientMinorVersion);
+            writer.Write(FingerprintHash);
 
-            writer.WriteString(Unknown1);
+            writer.Write(Unknown1);
 
-            writer.WriteString(OpenUDID);
-            writer.WriteString(MacAddress);
-            writer.WriteString(DeviceModel);
-            writer.WriteInt32(LocaleKey);
-            writer.WriteString(Language);
-            writer.WriteString(AdvertisingGUID);
-            writer.WriteString(OSVersion);
+            writer.Write(OpenUDID);
+            writer.Write(MacAddress);
+            writer.Write(DeviceModel);
+            writer.WriteBigEndian((int)LocaleKey);
+            writer.Write(Language);
+            writer.Write(AdvertisingGUID);
+            writer.Write(OSVersion);
 
-            writer.WriteByte(Unknown2);
-            writer.WriteString(Unknown3);
+            writer.Write(Unknown2);
+            writer.Write(Unknown3);
 
-            writer.WriteString(AndroidDeviceID);
-            writer.WriteString(FacebookDistributionID);
-            writer.WriteBoolean(IsAdvertisingTrackingEnabled);
-            writer.WriteString(VendorGUID);
-            writer.WriteInt32(Seed);
+            writer.Write(AndroidDeviceID);
+            writer.Write(FacebookDistributionID);
+            writer.Write(IsAdvertisingTrackingEnabled);
+            writer.Write(VendorGUID);
+            writer.WriteBigEndian((int)Seed);
         }
     }
 }

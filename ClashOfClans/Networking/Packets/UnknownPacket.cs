@@ -14,7 +14,7 @@ namespace ClashOfClans.Networking.Packets
             throw new NotImplementedException();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
             throw new NotImplementedException();
         }

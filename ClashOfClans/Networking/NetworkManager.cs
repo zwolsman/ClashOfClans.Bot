@@ -72,6 +72,7 @@ namespace ClashOfClans.Networking
             {
                 //TODO handle it
                 _logger.Error("Socket disconnected!");
+                return;
             }
 
             if (args.LastOperation == SocketAsyncOperation.Receive)
@@ -215,7 +216,7 @@ namespace ClashOfClans.Networking
             if (packet == null)
                 throw new ArgumentNullException(nameof(packet));
 
-            using (var decryptedWriter = new PacketWriter(new MemoryStream()))
+            using (var decryptedWriter = new ClashBinaryWriter(new MemoryStream()))
             {
                 packet.WritePacket(decryptedWriter);
                 var body = ((MemoryStream)decryptedWriter.BaseStream).ToArray();
@@ -224,11 +225,11 @@ namespace ClashOfClans.Networking
                 if (packet is UpdateKeyPacket)
                     UpdateCiphers(Seed, ((UpdateKeyPacket)packet).Key); // handle update key packet
 
-                using (var encryptedWriter = new PacketWriter(new MemoryStream())) // write header
+                using (var encryptedWriter = new ClashBinaryWriter(new MemoryStream())) // write header
                 {
-                    encryptedWriter.WriteUInt16(packet.ID);
-                    encryptedWriter.WriteInt24(body.Length);
-                    encryptedWriter.WriteUInt16(0); // the unknown or the packet version
+                    encryptedWriter.WriteBigEndian((ushort)packet.ID);
+                    encryptedWriter.Write((Int24)body.Length);
+                    encryptedWriter.WriteBigEndian((ushort)0); // the unknown or the packet version
                     encryptedWriter.Write(body, 0, body.Length);
 
                     var rawPacket = ((MemoryStream)encryptedWriter.BaseStream).ToArray();

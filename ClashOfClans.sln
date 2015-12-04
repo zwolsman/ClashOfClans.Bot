@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashOfClans.Client", "Clas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashOfClans", "ClashOfClans\ClashOfClans.csproj", "{036DF90A-2819-47B6-B50B-2D85D6845B98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashOfClans.Tests", "ClashOfClans.Tests\ClashOfClans.Tests.csproj", "{CF07DA03-4CA3-4CEE-9CB0-A147C5B2FBE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashOfClans.Test", "ClashOfClans.Test\ClashOfClans.Test.csproj", "{483553DF-7310-470C-AFFD-29BD0BA4C37C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{036DF90A-2819-47B6-B50B-2D85D6845B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{036DF90A-2819-47B6-B50B-2D85D6845B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{036DF90A-2819-47B6-B50B-2D85D6845B98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF07DA03-4CA3-4CEE-9CB0-A147C5B2FBE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF07DA03-4CA3-4CEE-9CB0-A147C5B2FBE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF07DA03-4CA3-4CEE-9CB0-A147C5B2FBE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF07DA03-4CA3-4CEE-9CB0-A147C5B2FBE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483553DF-7310-470C-AFFD-29BD0BA4C37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483553DF-7310-470C-AFFD-29BD0BA4C37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483553DF-7310-470C-AFFD-29BD0BA4C37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483553DF-7310-470C-AFFD-29BD0BA4C37C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

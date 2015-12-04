@@ -51,22 +51,22 @@ namespace ClashOfClans.Networking.Packets
             Unknown4 = reader.ReadString();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
-            writer.WriteInt32((int)FailureReason);
+            writer.WriteBigEndian((int)(int)FailureReason);
 /*            if (Fingerprint != null)
-                writer.WriteString(Fingerprint.ToJson());
+                writer.Write(Fingerprint.ToJson());
             else
-                writer.WriteString(null);*/
-            writer.WriteString(HostName);
-            writer.WriteString(AssetsRootUrl);
-            writer.WriteString(iTunesUrl);
-            writer.WriteString(Unknown1);
-            writer.WriteInt32(RemainingTime);
-            writer.WriteByte(Unknown2);
-            writer.WriteByteArray(CompressedFingerprintJson);
-            writer.WriteString(Unknown3);
-            writer.WriteString(Unknown4);
+                writer.Write(null);*/
+            writer.Write(HostName);
+            writer.Write(AssetsRootUrl);
+            writer.Write(iTunesUrl);
+            writer.Write(Unknown1);
+            writer.WriteBigEndian((int)RemainingTime);
+            writer.Write(Unknown2);
+            writer.Write(CompressedFingerprintJson);
+            writer.Write(Unknown3);
+            writer.Write(Unknown4);
             //File.WriteAllBytes("dump", ((MemoryStream)writer.BaseStream).ToArray());
         }
     }
