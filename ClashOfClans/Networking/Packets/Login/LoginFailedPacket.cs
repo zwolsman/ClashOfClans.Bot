@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +34,9 @@ namespace ClashOfClans.Networking.Packets
         public string Unknown3;
         public string Unknown4;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
-            FailureReason = (LoginFailureReason)reader.ReadInt32();
+            FailureReason = (LoginFailureReason)reader.ReadInt32BigEndian();
             var fingerprintJson = reader.ReadString();
            /* if (fingerprintJson != null)
                 Fingerprint = new Fingerprint(fingerprintJson);*/
@@ -42,7 +44,7 @@ namespace ClashOfClans.Networking.Packets
             AssetsRootUrl = reader.ReadString();
             iTunesUrl = reader.ReadString();
             Unknown1 = reader.ReadString();
-            RemainingTime = reader.ReadInt32();
+            RemainingTime = reader.ReadInt32BigEndian();
             Unknown2 = reader.ReadByte();
             CompressedFingerprintJson = reader.ReadByteArray();
             Unknown3 = reader.ReadString();

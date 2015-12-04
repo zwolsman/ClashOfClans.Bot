@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,13 +38,13 @@ namespace ClashOfClans.Networking.Packets
         public string VendorGUID;
         public int Seed;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
-            UserID = reader.ReadInt64();
+            UserID = reader.ReadInt64BigEndian();
             UserToken = reader.ReadString();
-            ClientMajorVersion = reader.ReadInt32();
-            ClientContentVersion = reader.ReadInt32();
-            ClientMinorVersion = reader.ReadInt32();
+            ClientMajorVersion = reader.ReadInt32BigEndian();
+            ClientContentVersion = reader.ReadInt32BigEndian();
+            ClientMinorVersion = reader.ReadInt32BigEndian();
             FingerprintHash = reader.ReadString();
 
             Unknown1 = reader.ReadString();
@@ -50,7 +52,7 @@ namespace ClashOfClans.Networking.Packets
             OpenUDID = reader.ReadString();
             MacAddress = reader.ReadString();
             DeviceModel = reader.ReadString();
-            LocaleKey = reader.ReadInt32();
+            LocaleKey = reader.ReadInt32BigEndian();
             Language = reader.ReadString();
             AdvertisingGUID = reader.ReadString();
             OSVersion = reader.ReadString();
@@ -62,7 +64,7 @@ namespace ClashOfClans.Networking.Packets
             FacebookDistributionID = reader.ReadString();
             IsAdvertisingTrackingEnabled = reader.ReadBoolean();
             VendorGUID = reader.ReadString();
-            Seed = reader.ReadInt32();
+            Seed = reader.ReadInt32BigEndian();
         }
 
         public void WritePacket(PacketWriter writer)

@@ -9,7 +9,7 @@ namespace ClashOfClans.Networking.Packets
     class UnknownPacket : IPacket
     {
         public ushort ID { get; set; }
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
             throw new NotImplementedException();
         }

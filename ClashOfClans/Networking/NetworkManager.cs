@@ -169,7 +169,7 @@ namespace ClashOfClans.Networking
 
 
             //Read the packet.
-            using (PacketReader reader = new PacketReader(new MemoryStream(packetDecryptedData)))
+            using (ClashBinaryReader reader = new ClashBinaryReader(new MemoryStream(packetDecryptedData)))
             {
                 try
                 {

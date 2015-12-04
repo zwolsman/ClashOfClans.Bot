@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,27 +30,27 @@ namespace ClashOfClans.Networking.Packets
         public string GooglePlusID;
         public string CountryCode;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
-            UserID = reader.ReadInt64();
-            UserID1 = reader.ReadInt64();
+            UserID = reader.ReadInt64BigEndian();
+            UserID1 = reader.ReadInt64BigEndian();
             UserToken = reader.ReadString();
             FacebookID = reader.ReadString();
             GameCenterID = reader.ReadString();
-            MajorVersion = reader.ReadInt32();
-            MinorVersion = reader.ReadInt32();
-            RevisionVersion = reader.ReadInt32();
+            MajorVersion = reader.ReadInt32BigEndian();
+            MinorVersion = reader.ReadInt32BigEndian();
+            RevisionVersion = reader.ReadInt32BigEndian();
             ServerEnvironment = reader.ReadString();
-            LoginCount = reader.ReadInt32();
-            PlayTime = TimeSpan.FromSeconds(reader.ReadInt32());
+            LoginCount = reader.ReadInt32BigEndian();
+            PlayTime = TimeSpan.FromSeconds(reader.ReadInt32BigEndian());
 
-            Unknown1 = reader.ReadInt32();
+            Unknown1 = reader.ReadInt32BigEndian();
 
             FacebookAppID = reader.ReadString();
             DateLastPlayed = DateTimeConverter.FromJavaTimestamp(double.Parse(reader.ReadString()));
             DateJoined = DateTimeConverter.FromJavaTimestamp(double.Parse(reader.ReadString()));
 
-            Unknown2 = reader.ReadInt32();
+            Unknown2 = reader.ReadInt32BigEndian();
 
             GooglePlusID = reader.ReadString();
             CountryCode = reader.ReadString();

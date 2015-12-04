@@ -6,6 +6,8 @@ namespace ClashOfClans
     {
         private int _int;
 
+        public const int SIZE = 3;
+
         public Int24(Int32 int32)
         {
             _int = int32 & 0xFFFFFF;
@@ -32,24 +34,30 @@ namespace ClashOfClans
             => new UInt24((uint)int24._int);
 
         // for lack of extending BitConverter
-        public static unsafe explicit operator byte[](Int24 int24)  
-        {
-            var buf = new byte[3];
-
-            fixed(byte* p = buf)
+        public static explicit operator byte[](Int24 int24)  
+            => new []
             {
-                *(p) = *((byte*)(int24._int));
-                *(p + 1) = *((byte*)(int24._int + 1));
-                *(p + 2) = *((byte*)(int24._int + 2));
-            }
+                (byte)(int24._int & 0xFF),
+                (byte)(int24._int >> 8 & 0xFF),
+                (byte)(int24._int >> 16 & 0xFF)
+            };
 
-            return buf;
+        public static Int24 FromBytes(byte[] buf)
+        {
+            if (buf == null)
+                throw new ArgumentNullException(nameof(buf));
+            if (buf.Length != 3)
+                throw new ArgumentException("Buf's length must be 3", nameof(buf));
+
+            return new Int24(buf[0] | buf[1] << 8 | buf[2] << 16);
         }
     }
 
     public struct UInt24
     {
         private uint _uint;
+
+        public const int SIZE = 3;
 
         public UInt24(UInt32 uint32)
         {
@@ -77,18 +85,22 @@ namespace ClashOfClans
             => new Int24((int)uint24._uint);
 
         // for lack of extending BitConverter
-        public static unsafe explicit operator byte[] (UInt24 uint24)
-        {
-            var buf = new byte[3];
-
-            fixed (byte* p = buf)
+        public static explicit operator byte[] (UInt24 uint24)
+            => new[]
             {
-                *(p) = *((byte*)(uint24._uint));
-                *(p + 1) = *((byte*)(uint24._uint + 1));
-                *(p + 2) = *((byte*)(uint24._uint + 2));
-            }
+                (byte)(uint24._uint >> 16 & 0xFF),
+                (byte)(uint24._uint >> 8 & 0xFF),
+                (byte)(uint24._uint & 0xFF)
+            };
 
-            return buf;
+        public static UInt24 FromBytes(byte[] buf)
+        {
+            if (buf == null)
+                throw new ArgumentNullException(nameof(buf));
+            if (buf.Length != 3)
+                throw new ArgumentException("Buf's length must be 3", nameof(buf));
+
+            return new UInt24((uint)(buf[0] | buf[1] << 8 | buf[2] << 16));
         }
     }
 }

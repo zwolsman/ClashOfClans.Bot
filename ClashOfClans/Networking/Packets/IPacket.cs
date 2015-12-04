@@ -1,9 +1,11 @@
-﻿namespace ClashOfClans.Networking.Packets
+﻿using System.IO;
+
+namespace ClashOfClans.Networking.Packets
 {
     public interface IPacket
     {
         ushort ID { get; }
-        void ReadPacket(PacketReader reader);
+        void ReadPacket(ClashBinaryReader reader);
         void WritePacket(PacketWriter writer);
 
     }

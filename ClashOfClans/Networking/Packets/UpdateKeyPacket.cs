@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,10 @@ namespace ClashOfClans.Networking.Packets
         public byte[] Key;
         public int ScramblerVersion; // = 1 Encryption version?
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
             Key = reader.ReadByteArray();
-            ScramblerVersion = reader.ReadInt32();
+            ScramblerVersion = reader.ReadInt32BigEndian();
         }
 
         public void WritePacket(PacketWriter writer)

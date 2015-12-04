@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClashOfClans.Util;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,22 +23,22 @@ namespace ClashOfClans.Networking.Packets
         public string ClanName;
         public int Unknown3;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
             Message = reader.ReadString();
             Username = reader.ReadString();
 
-            Level = reader.ReadInt32();
-            League = reader.ReadInt32();
+            Level = reader.ReadInt32BigEndian();
+            League = reader.ReadInt32BigEndian();
 
-            UserID = reader.ReadInt64();
-            UserID2 = reader.ReadInt64();
+            UserID = reader.ReadInt64BigEndian();
+            UserID2 = reader.ReadInt64BigEndian();
             HasClan = reader.ReadBoolean();
             if (HasClan)
             {
-                ClanID = reader.ReadInt64();
+                ClanID = reader.ReadInt64BigEndian();
                 ClanName = reader.ReadString();
-                Unknown3 = reader.ReadInt32();
+                Unknown3 = reader.ReadInt32BigEndian();
             }
         }
 

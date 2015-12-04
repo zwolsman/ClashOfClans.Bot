@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,14 +78,14 @@
     <Compile Include="Logic\Clan.cs" />
     <Compile Include="Logic\Resource.cs" />
     <Compile Include="Logic\Village.cs" />
-    <Compile Include="Networking\ClashStreamWriter.cs" />
+    <Compile Include="Networking\ClashBinaryReader.cs" />
+    <Compile Include="Util\BinaryReaderExtensions.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Networking\NetworkManagerSettings.cs" />
     <Compile Include="Networking\PacketBufferManager.cs" />
     <Compile Include="Networking\PacketExtractor.cs" />
-    <Compile Include="Networking\PacketReader.cs" />
     <Compile Include="Networking\PacketReceivedEventArgs.cs" />
     <Compile Include="Networking\Packets\ChatMessageServerPacket.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
@@ -104,6 +104,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Util\BinaryWriterExtensions.cs" />
+    <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

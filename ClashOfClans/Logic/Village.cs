@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClashOfClans.Networking;
-using Ionic.Zlib;
+//using Ionic.Zlib;
 using log4net;
+using ClashOfClans.Util;
 
 namespace ClashOfClans.Logic
 {
@@ -16,23 +17,23 @@ namespace ClashOfClans.Logic
         private static readonly ILog logger = LogManager.GetLogger(typeof(Village));
 
 
-        public void Read(PacketReader reader)
+        public void Read(ClashBinaryReader reader)
         {
             var homeData = reader.ReadByteArray();
             if (homeData == null)
                 return;
-            using (var binaryReader = new BinaryReader(new MemoryStream(homeData)))
+            using (var ClashBinaryReader = new ClashBinaryReader(new MemoryStream(homeData)))
             {
-                var decompressedLength = binaryReader.ReadInt32();
-                var compressedJson = binaryReader.ReadBytes(homeData.Length - 4);
+                var decompressedLength = ClashBinaryReader.ReadInt32BigEndian();
+                var compressedJson = ClashBinaryReader.ReadBytes(homeData.Length - 4);
                 
-                var json = ZlibStream.UncompressString(compressedJson);
-                if (decompressedLength != json.Length)
-                    if (decompressedLength - 1 != json.Length) // to prevent for running in error
-                        throw new InvalidDataException(string.Format("Json length is not valid. {0} != {1}.", decompressedLength, json.Length));
+                //var json = ZlibStream.UncompressString(compressedJson);
+                //if (decompressedLength != json.Length)
+                //    if (decompressedLength - 1 != json.Length) // to prevent for running in error
+                //        throw new InvalidDataException(string.Format("Json length is not valid. {0} != {1}.", decompressedLength, json.Length));
                 
 
-                logger.InfoFormat("Raw json: {0}", json);
+                //logger.InfoFormat("Raw json: {0}", json);
             }
         }
     }
