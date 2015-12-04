@@ -66,6 +66,7 @@
     <Compile Include="Data\Csv\CsvPropertyAttribute.cs" />
     <Compile Include="Data\Csv\CsvSerializer.cs" />
     <Compile Include="Data\Csv\CsvTable.cs" />
+    <Compile Include="DateTimeConverter.cs" />
     <Compile Include="KeepAliveManager.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
@@ -76,10 +77,11 @@
     <Compile Include="Networking\PacketReader.cs" />
     <Compile Include="Networking\PacketReceivedEventArgs.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
-    <Compile Include="Networking\Packets\KeepAliveRequestPacket.cs" />
-    <Compile Include="Networking\Packets\KeepAliveResponsePacket.cs" />
-    <Compile Include="Networking\Packets\LoginFailedPacket.cs" />
-    <Compile Include="Networking\Packets\LoginRequestPacket.cs" />
+    <Compile Include="Networking\Packets\KeepAlive\KeepAliveRequestPacket.cs" />
+    <Compile Include="Networking\Packets\KeepAlive\KeepAliveResponsePacket.cs" />
+    <Compile Include="Networking\Packets\Login\LoginFailedPacket.cs" />
+    <Compile Include="Networking\Packets\Login\LoginRequestPacket.cs" />
+    <Compile Include="Networking\Packets\Login\LoginSuccesPacket.cs" />
     <Compile Include="Networking\Packets\UnknownPacket.cs" />
     <Compile Include="Networking\Packets\UpdateKeyPacket.cs" />
     <Compile Include="Networking\PacketToken.cs" />
