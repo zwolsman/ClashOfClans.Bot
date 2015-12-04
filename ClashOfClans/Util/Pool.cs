@@ -8,7 +8,7 @@ namespace ClashOfClans.Util
         private readonly ConcurrentBag<T> _internalBag;
         private readonly Func<T> _generator;
 
-        public Pool() : this(() => Activator.CreateInstance<T>())
+        public Pool() : this(Activator.CreateInstance<T>)
         { }
 
         public Pool(Func<T> generator)
@@ -20,10 +20,7 @@ namespace ClashOfClans.Util
         public T Get()
         {
             T item;
-            if (_internalBag.TryTake(out item))
-                return item;
-
-            return _generator();
+            return _internalBag.TryTake(out item) ? item : _generator();
         }
 
         public void Put(T item)
