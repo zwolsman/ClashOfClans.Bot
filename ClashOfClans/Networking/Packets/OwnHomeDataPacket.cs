@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ClashOfClans.Data.Csv;
 using ClashOfClans.Logic;
 using ClashOfClans.Properties;
+using ClashOfClans.Util;
 using log4net;
 
 namespace ClashOfClans.Networking.Packets
@@ -59,24 +60,24 @@ namespace ClashOfClans.Networking.Packets
         public int Unknown27;
         public int Unknown26;
 
-        public void ReadPacket(PacketReader reader)
+        public void ReadPacket(ClashBinaryReader reader)
         {
             var offset = 0x2A;
-            LastVisit = TimeSpan.FromSeconds(reader.ReadInt32());
-            Unknown1 = reader.ReadInt32();
-            Timestamp = DateTimeConverter.FromUnixTimestamp(reader.ReadInt32());
-            Unknown2 = reader.ReadInt32();
+            LastVisit = TimeSpan.FromSeconds(reader.ReadInt32BigEndian());
+            Unknown1 = reader.ReadInt32BigEndian();
+            Timestamp = DateTimeConverter.FromUnixTimestamp(reader.ReadInt32BigEndian());
+            Unknown2 = reader.ReadInt32BigEndian();
             UserID = reader.ReadInt64();
-            ShieldDuration = TimeSpan.FromSeconds(reader.ReadInt32());
-            Unknown3 = reader.ReadInt32();
-            Unknown4 = reader.ReadInt32();
+            ShieldDuration = TimeSpan.FromSeconds(reader.ReadInt32BigEndian());
+            Unknown3 = reader.ReadInt32BigEndian();
+            Unknown4 = reader.ReadInt32BigEndian();
             Compressed = reader.ReadBoolean();
             Home = new Village();
             Home.Read(reader);
 
             Avatar = new Avatar();
             // Seems like a whole object
-            Unknown6 = reader.ReadInt32();
+            Unknown6 = reader.ReadInt32BigEndian();
             UserID1 = reader.ReadInt64();
             UserID2 = reader.ReadInt64();
             Avatar.ID = UserID1;
@@ -90,9 +91,9 @@ namespace ClashOfClans.Networking.Packets
                     Avatar.Clan = new Clan();
                     Avatar.Clan.ID = reader.ReadInt64();
                     Avatar.Clan.Name = reader.ReadString();
-                    Avatar.Clan.Badge = reader.ReadInt32();
-                    reader.ReadInt32();
-                    Avatar.Clan.Level = reader.ReadInt32();
+                    Avatar.Clan.Badge = reader.ReadInt32BigEndian();
+                    reader.ReadInt32BigEndian();
+                    Avatar.Clan.Level = reader.ReadInt32BigEndian();
                     offset += 1;
                     break;
 
@@ -108,48 +109,48 @@ namespace ClashOfClans.Networking.Packets
                 Unknown10 = reader.ReadInt64();
 
             reader.Seek(offset, SeekOrigin.Current);
-            Unknown11 = reader.ReadInt32();
-            AllianceCastleLevel = reader.ReadInt32(); // -1 if not constructed
-            AllianceCastleUnitCapacity = reader.ReadInt32();
-            AllianceCastleUnitCount = reader.ReadInt32();
-            Avatar.TownHallLevel = reader.ReadInt32();
+            Unknown11 = reader.ReadInt32BigEndian();
+            AllianceCastleLevel = reader.ReadInt32BigEndian(); // -1 if not constructed
+            AllianceCastleUnitCapacity = reader.ReadInt32BigEndian();
+            AllianceCastleUnitCount = reader.ReadInt32BigEndian();
+            Avatar.TownHallLevel = reader.ReadInt32BigEndian();
             Avatar.Username = reader.ReadString();
             FacebookID = reader.ReadString();
-            Avatar.Level = reader.ReadInt32();
-            Avatar.Experience = reader.ReadInt32();
-            Avatar.Gems = reader.ReadInt32();
-            Gems1 = reader.ReadInt32();
-            Unknown14 = reader.ReadInt32();
-            Unknown15 = reader.ReadInt32();
-            Avatar.Trophies = reader.ReadInt32();
-            Avatar.AttacksWon = reader.ReadInt32();
-            Avatar.AttacksLost = reader.ReadInt32();
-            Avatar.DefensesWon = reader.ReadInt32();
-            Avatar.DefensesLost = reader.ReadInt32();
-            Unknown16 = reader.ReadInt32();
-            Unknown17 = reader.ReadInt32();
-            Unknown18 = reader.ReadInt32();
+            Avatar.Level = reader.ReadInt32BigEndian();
+            Avatar.Experience = reader.ReadInt32BigEndian();
+            Avatar.Gems = reader.ReadInt32BigEndian();
+            Gems1 = reader.ReadInt32BigEndian();
+            Unknown14 = reader.ReadInt32BigEndian();
+            Unknown15 = reader.ReadInt32BigEndian();
+            Avatar.Trophies = reader.ReadInt32BigEndian();
+            Avatar.AttacksWon = reader.ReadInt32BigEndian();
+            Avatar.AttacksLost = reader.ReadInt32BigEndian();
+            Avatar.DefensesWon = reader.ReadInt32BigEndian();
+            Avatar.DefensesLost = reader.ReadInt32BigEndian();
+            Unknown16 = reader.ReadInt32BigEndian();
+            Unknown17 = reader.ReadInt32BigEndian();
+            Unknown18 = reader.ReadInt32BigEndian();
             if (Unknown19 = reader.ReadBoolean())
                 Unknown20 = reader.ReadInt64();
             Unknown21 = reader.ReadByte();
-            Unknown22 = reader.ReadInt32();
-            Unknown23 = reader.ReadInt32();
-            Unknown24 = reader.ReadInt32();
-            Unknown25 = reader.ReadInt32();
+            Unknown22 = reader.ReadInt32BigEndian();
+            Unknown23 = reader.ReadInt32BigEndian();
+            Unknown24 = reader.ReadInt32BigEndian();
+            Unknown25 = reader.ReadInt32BigEndian();
             
-            int count1 = reader.ReadInt32();
+            int count1 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count1; i++)
             {
-                var id = reader.ReadInt32(); // resource id from resources.csv
-                var capacity = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // resource id from resources.csv
+                var capacity = reader.ReadInt32BigEndian();
                 Home.ResourceManager[id].Capacity = capacity;
             }
 
-            int count2 = reader.ReadInt32();
+            int count2 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count2; i++)
             {
-                var id = reader.ReadInt32(); // resource id from resources.csv
-                var amount = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // resource id from resources.csv
+                var amount = reader.ReadInt32BigEndian();
                 Home.ResourceManager[id].Amount = amount;
             }
 
@@ -157,109 +158,109 @@ namespace ClashOfClans.Networking.Packets
             {
                 logger.Info(resource.ToString());
             }
-            var count3 = reader.ReadInt32();
+            var count3 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count3; i++)
             {
-                var id = reader.ReadInt32(); // unit id from characters.csv
-                var amount = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // unit id from characters.csv
+                var amount = reader.ReadInt32BigEndian();
             }
 
-            var count4 = reader.ReadInt32();
+            var count4 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count4; i++)
             {
-                var id = reader.ReadInt32(); // spell id from spells.csv
-                var amount = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // spell id from spells.csv
+                var amount = reader.ReadInt32BigEndian();
             }
 
-            var count5 = reader.ReadInt32();
+            var count5 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count5; i++)
             {
-                var id = reader.ReadInt32(); // unit id from characters.csv
-                var level = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // unit id from characters.csv
+                var level = reader.ReadInt32BigEndian();
             }
 
-            var count6 = reader.ReadInt32();
+            var count6 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count6; i++)
             {
-                var id = reader.ReadInt32(); // spell id from spells.csv
-                var level = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // spell id from spells.csv
+                var level = reader.ReadInt32BigEndian();
             }
 
-            var count7 = reader.ReadInt32();
+            var count7 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count7; i++)
             {
-                var id = reader.ReadInt32(); // hero id from heros.csv
-                var level = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // hero id from heros.csv
+                var level = reader.ReadInt32BigEndian();
             }
 
-            var count8 = reader.ReadInt32();
+            var count8 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count8; i++)
             {
-                var id = reader.ReadInt32(); // hero id from heros.csv
-                var health = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // hero id from heros.csv
+                var health = reader.ReadInt32BigEndian();
             }
 
-            var count9 = reader.ReadInt32();
+            var count9 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count9; i++)
             {
-                var id = reader.ReadInt32(); // hero id from heros.csv
-                var state = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // hero id from heros.csv
+                var state = reader.ReadInt32BigEndian();
             }
 
-            var count10 = reader.ReadInt32();
+            var count10 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count10; i++)
             {
-                var id = reader.ReadInt32(); // unit id from characters.csv
-                var amount = reader.ReadInt32();
-                var level = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // unit id from characters.csv
+                var amount = reader.ReadInt32BigEndian();
+                var level = reader.ReadInt32BigEndian();
             }
 
-            var count11 = reader.ReadInt32();
+            var count11 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count11; i++)
             {
-                var id = reader.ReadInt32(); // mission id from missions.csv
+                var id = reader.ReadInt32BigEndian(); // mission id from missions.csv
             }
 
-            var count12 = reader.ReadInt32();
+            var count12 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count12; i++)
             {
-                var id = reader.ReadInt32(); // achievement id from achievements.csv
+                var id = reader.ReadInt32BigEndian(); // achievement id from achievements.csv
             }
 
-            var count13 = reader.ReadInt32();
+            var count13 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count13; i++)
             {
-                var id = reader.ReadInt32(); // achievement id from achievements.csv
-                var progress = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // achievement id from achievements.csv
+                var progress = reader.ReadInt32BigEndian();
             }
 
-            var count14 = reader.ReadInt32();
+            var count14 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count14; i++)
             {
-                var id = reader.ReadInt32(); // npc id from npcs.csv
-                var stars = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // npc id from npcs.csv
+                var stars = reader.ReadInt32BigEndian();
             }
 
-            var count15 = reader.ReadInt32();
+            var count15 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count15; i++)
             {
-                var id = reader.ReadInt32(); // npc id from npcs.csv
-                var gold = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // npc id from npcs.csv
+                var gold = reader.ReadInt32BigEndian();
             }
 
-            var count16 = reader.ReadInt32();
+            var count16 = reader.ReadInt32BigEndian();
             for (int i = 0; i < count16; i++)
             {
-                var id = reader.ReadInt32(); // npc id from npcs.csv
-                var elixir = reader.ReadInt32();
+                var id = reader.ReadInt32BigEndian(); // npc id from npcs.csv
+                var elixir = reader.ReadInt32BigEndian();
             }
 
-            Unknown26 = reader.ReadInt32();
-            Unknown27 = reader.ReadInt32();
-            Unknown28 = reader.ReadInt32();
+            Unknown26 = reader.ReadInt32BigEndian();
+            Unknown27 = reader.ReadInt32BigEndian();
+            Unknown28 = reader.ReadInt32BigEndian();
         }
 
-        public void WritePacket(PacketWriter writer)
+        public void WritePacket(ClashBinaryWriter writer)
         {
             var offset = 0x2A;
           /*  writer.WriteInt32((int)LastVisit.TotalSeconds);
