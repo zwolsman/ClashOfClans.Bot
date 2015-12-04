@@ -67,6 +67,13 @@
     <Compile Include="Util\Pool.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Raw\achievements.csv" />
+    <None Include="Data\Raw\buildings.csv" />
+    <None Include="Data\Raw\characters.csv" />
+    <None Include="Data\Raw\missions.csv" />
+    <None Include="Data\Raw\npcs.csv" />
+    <None Include="Data\Raw\resources.csv" />
+    <None Include="Data\Raw\spells.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
