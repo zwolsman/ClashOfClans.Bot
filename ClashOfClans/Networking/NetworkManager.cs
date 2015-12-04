@@ -8,17 +8,33 @@ using System.Threading.Tasks;
 using ClashOfClans.Networking.Factories;
 using ClashOfClans.Networking.Packets;
 using log4net;
+using ClashOfClans.Util;
 
 namespace ClashOfClans.Networking
 {
     public class NetworkManager
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(NetworkManager));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(NetworkManager));
+        private readonly Pool<SocketAsyncEventArgs> _socketArgsPool ;
+
+        public NetworkManager()
+        {
+            Func<SocketAsyncEventArgs> generator = () =>                                            // if there isn't a item in the back this will be called -> the generator for the events
+            {
+                var args = new SocketAsyncEventArgs();
+
+                args.Completed += AsyncOperationCompleted;
+                BufferManager.SetBuffer(args);                                                      // <-- don't understand yet marvinn stuf
+                PacketToken.Create(args);
+
+                return args;
+            };
+
+            _socketArgsPool = new Pool<SocketAsyncEventArgs>(generator);
+        }
 
         private Crypto Crypto { get; }
-
-        private SocketAsyncEventArgsPool ReceiveEventPool { get; }
-        private SocketAsyncEventArgsPool SendEventPool { get; }
+        
         private PacketBufferManager BufferManager { get; set; }
         private NetworkManagerSettings Settings { get; set; }
         public int Seed { get; set; }
@@ -34,38 +50,16 @@ namespace ClashOfClans.Networking
 
             Crypto = new Crypto();
             Settings = new NetworkManagerSettings();
-
-            ReceiveEventPool = new SocketAsyncEventArgsPool(25);
-            SendEventPool = new SocketAsyncEventArgsPool(25);
+            
             SetAsyncOperationPools();
 
-            StartReceive(ReceiveEventPool.Pop());
+            StartReceive(_socketArgsPool.Get());
         }
 
         private void SetAsyncOperationPools()
         {
             BufferManager = new PacketBufferManager(Settings.ReceiveOperationCount, Settings.SendOperationCount,
                 Settings.BufferSize);
-
-            for (int i = 0; i < ReceiveEventPool.Capacity; i++)
-            {
-                SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-
-                args.Completed += AsyncOperationCompleted;
-                BufferManager.SetBuffer(args);
-                PacketToken.Create(args);
-                ReceiveEventPool.Push(args);
-            }
-
-            for (int i = 0; i < SendEventPool.Capacity; i++)
-            {
-                SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-
-                args.Completed += AsyncOperationCompleted;
-                BufferManager.SetBuffer(args);
-                PacketToken.Create(args);
-                ReceiveEventPool.Push(args);
-            }
         }
 
         private void StartReceive(SocketAsyncEventArgs args)
@@ -79,7 +73,7 @@ namespace ClashOfClans.Networking
             if (args.SocketError != SocketError.Success)
             {
                 //TODO handle it
-                logger.Error("Socket disconnected!");
+                _logger.Error("Socket disconnected!");
             }
 
             if (args.LastOperation == SocketAsyncOperation.Receive)
@@ -98,7 +92,7 @@ namespace ClashOfClans.Networking
             }
             else
             {
-                logger.Debug("Need to handle other operation.");
+                _logger.Debug("Need to handle other operation.");
             }
         }
 
@@ -110,7 +104,7 @@ namespace ClashOfClans.Networking
 
             if (bytesToProcess == 0)
             {
-                logger.Error("Socket disconnected!");
+                _logger.Error("Socket disconnected!");
             }
             ReadPacket:
 
@@ -119,7 +113,7 @@ namespace ClashOfClans.Networking
             {
                 if (PacketExtractor.HEADER_SIZE > bytesToProcess) //Not enough bytes for the header..
                 {
-                    logger.DebugFormat("[Net:ID {0}] Not enough bytes to read header.", packetToken.TokenID);
+                    _logger.DebugFormat("[Net:ID {0}] Not enough bytes to read header.", packetToken.TokenID);
                     Buffer.BlockCopy(args.Buffer, packetToken.ReceiveOffset, packetToken.Header,
                         packetToken.HeaderReceiveOffset, bytesToProcess);
                     packetToken.HeaderReceiveOffset += bytesToProcess;
@@ -142,7 +136,7 @@ namespace ClashOfClans.Networking
             {
                 if (packetToken.Length - packetToken.BodyReceiveOffset > bytesToProcess) //Not enough bytes for the body..
                 {
-                    logger.DebugFormat("[Net:ID {0}] Not enough bytes to read body.", packetToken.TokenID);
+                    _logger.DebugFormat("[Net:ID {0}] Not enough bytes to read body.", packetToken.TokenID);
 
                     Buffer.BlockCopy(args.Buffer, packetToken.ReceiveOffset, packetToken.Body, packetToken.BodyReceiveOffset, bytesToProcess);
                     packetToken.BodyReceiveOffset += bytesToProcess;
@@ -204,9 +198,8 @@ namespace ClashOfClans.Networking
             }
 
             packetToken.ReceiveOffset = args.Offset;
-            ReceiveEventPool.Push(args);
-
-            StartReceive(ReceiveEventPool.Pop());
+            
+            StartReceive(args);                                             // just reuse it :D
             return packetList.ToArray();
         }
 
@@ -255,7 +248,7 @@ namespace ClashOfClans.Networking
         {
             if (key == null)
                 throw new ArgumentNullException(nameof(key));
-            logger.InfoFormat("Updating ciphers. Seed: {0}, key: {1}", seed, key.Aggregate("", (current, b) => current + b.ToString("x2")));
+            _logger.InfoFormat("Updating ciphers. Seed: {0}, key: {1}", seed, key.Aggregate("", (current, b) => current + b.ToString("x2")));
             Crypto.UpdateCiphers((ulong)seed, key);
         }
 
