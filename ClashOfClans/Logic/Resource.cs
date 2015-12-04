@@ -17,8 +17,21 @@ namespace ClashOfClans.Logic
     }
     public class Resource
     {
+        public Resource()
+        {
+            
+        }
+
+        public Resource(ResourceType resourceType)
+        {
+            ResourceType = resourceType;
+        }
         public ResourceType ResourceType { get; set; }
         public int Capacity { get; set; }
         public int Amount { get; set; }
+        public override string ToString()
+        {
+            return string.Format("{0} - Capacity: {1}, Amount: {2}", ResourceType, Capacity.ToString("N0"), Amount.ToString("N0"));
+        }
     }
 }

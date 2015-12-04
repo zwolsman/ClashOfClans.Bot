@@ -136,34 +136,27 @@ namespace ClashOfClans.Networking.Packets
             Unknown23 = reader.ReadInt32();
             Unknown24 = reader.ReadInt32();
             Unknown25 = reader.ReadInt32();
-
-            //TODO: Implement those things cause we are not actually storing them.
-
-            CsvTable table = new CsvTable(Resources.resources, true);
-
-            Resource r = new Resource();
-            var count1 = reader.ReadInt32();
+            
+            int count1 = reader.ReadInt32();
             for (int i = 0; i < count1; i++)
             {
                 var id = reader.ReadInt32(); // resource id from resources.csv
                 var capacity = reader.ReadInt32();
-                var row = table.Rows[id - 3000000];
-
-                Debug.WriteLine(row.ItemArray[0].ToString());
-
-
-                logger.InfoFormat("resource id: {0}, max: {1}", id, capacity);
+                Home.ResourceManager[id].Capacity = capacity;
             }
 
-            var count2 = reader.ReadInt32();
+            int count2 = reader.ReadInt32();
             for (int i = 0; i < count2; i++)
             {
                 var id = reader.ReadInt32(); // resource id from resources.csv
                 var amount = reader.ReadInt32();
-                logger.InfoFormat("resource id: {0}, amount: {1}", id, amount);
-
+                Home.ResourceManager[id].Amount = amount;
             }
 
+            foreach (Resource resource in Home.ResourceManager)
+            {
+                logger.Info(resource.ToString());
+            }
             var count3 = reader.ReadInt32();
             for (int i = 0; i < count3; i++)
             {

@@ -14,7 +14,7 @@ namespace ClashOfClans.Logic
     public class Village
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Village));
-
+        
 
         public void Read(PacketReader reader)
         {
@@ -35,5 +35,11 @@ namespace ClashOfClans.Logic
                 logger.InfoFormat("Raw json: {0}", json);
             }
         }
+
+
+        public ResourceManager ResourceManager { get; set; } = new ResourceManager();
+        
+        public Resource Gold => ResourceManager.GetResource(ResourceType.Gold);
+        public Resource Elixir => ResourceManager.GetResource(ResourceType.Elixir);
     }
 }

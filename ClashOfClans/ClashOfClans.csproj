@@ -75,6 +75,7 @@
     <Compile Include="Logic\Avatar.cs" />
     <Compile Include="Logic\Clan.cs" />
     <Compile Include="Logic\Resource.cs" />
+    <Compile Include="Logic\ResourceManager.cs" />
     <Compile Include="Logic\Village.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />

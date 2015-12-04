@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ClashOfClans.Data.Csv;
 using ClashOfClans.Networking;
 using ClashOfClans.Networking.Packets;
+using ClashOfClans.Properties;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -36,6 +37,7 @@ namespace ClashOfClans
             var patternLayout = new PatternLayout { ConversionPattern = "%m%n" };
             tracer.Layout = patternLayout;
             hierarchy.Configured = true;
+
 
             Connection = new Socket(SocketType.Stream, ProtocolType.Tcp);
             KeepAliveManager = new KeepAliveManager(this);
