@@ -45,6 +45,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Data\Compression\Common\CommandLineParser.cs" />
+    <Compile Include="Data\Compression\Common\CRC.cs" />
+    <Compile Include="Data\Compression\Common\InBuffer.cs" />
+    <Compile Include="Data\Compression\Common\OutBuffer.cs" />
+    <Compile Include="Data\Compression\Compress\LZMA\LzmaBase.cs" />
+    <Compile Include="Data\Compression\Compress\LZMA\LzmaDecoder.cs" />
+    <Compile Include="Data\Compression\Compress\LZMA\LzmaEncoder.cs" />
+    <Compile Include="Data\Compression\Compress\LZ\IMatchFinder.cs" />
+    <Compile Include="Data\Compression\Compress\LZ\LzBinTree.cs" />
+    <Compile Include="Data\Compression\Compress\LZ\LzInWindow.cs" />
+    <Compile Include="Data\Compression\Compress\LZ\LzOutWindow.cs" />
+    <Compile Include="Data\Compression\Compress\RangeCoder\RangeCoder.cs" />
+    <Compile Include="Data\Compression\Compress\RangeCoder\RangeCoderBit.cs" />
+    <Compile Include="Data\Compression\Compress\RangeCoder\RangeCoderBitTree.cs" />
+    <Compile Include="Data\Compression\ICoder.cs" />
+    <Compile Include="Data\Compression\LzmaUtils.cs" />
+    <Compile Include="Data\Csv\CsvException.cs" />
+    <Compile Include="Data\Csv\CsvIgnoreAttribute.cs" />
+    <Compile Include="Data\Csv\CsvPropertyAttribute.cs" />
+    <Compile Include="Data\Csv\CsvSerializer.cs" />
+    <Compile Include="Data\Csv\CsvTable.cs" />
     <Compile Include="KeepAliveManager.cs" />
     <Compile Include="Networking\Crypto.cs" />
     <Compile Include="Networking\Factories\PacketFactory.cs" />
@@ -67,16 +88,22 @@
     <Compile Include="Util\Pool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Raw\achievements.csv" />
-    <None Include="Data\Raw\buildings.csv" />
-    <None Include="Data\Raw\characters.csv" />
-    <None Include="Data\Raw\missions.csv" />
-    <None Include="Data\Raw\npcs.csv" />
-    <None Include="Data\Raw\resources.csv" />
-    <None Include="Data\Raw\spells.csv" />
     <None Include="packages.config" />
+    <None Include="Resources\achievements.csv" />
+    <None Include="Resources\buildings.csv" />
+    <None Include="Resources\characters.csv" />
+    <None Include="Resources\globals.csv" />
+    <None Include="Resources\missions.csv" />
+    <None Include="Resources\npcs.csv" />
+    <None Include="Resources\resources.csv" />
+    <None Include="Resources\spells.csv" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

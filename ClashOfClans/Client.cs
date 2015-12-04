@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using ClashOfClans.Data.Csv;
 using ClashOfClans.Networking;
 using ClashOfClans.Networking.Packets;
+using ClashOfClans.Properties;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -28,7 +31,6 @@ namespace ClashOfClans
 
         public Client()
         {
-
 #if DEBUG
             var tracer = new TraceAppender();
             var hierarchy = (Hierarchy)LogManager.GetRepository();

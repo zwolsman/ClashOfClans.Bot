@@ -8,7 +8,7 @@ namespace ClashOfClans.Networking.Packets
 {
     public class LoginFailedPacket : IPacket
     {
-        public enum LoginFailureReason : int
+        public enum LoginFailureReason
         {
             OutdatedContent = 7,
             OutdatedVersion = 8,
