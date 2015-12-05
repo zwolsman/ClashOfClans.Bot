@@ -39,6 +39,7 @@ namespace ClashOfClans
             hierarchy.Configured = true;
 
 
+            
             Connection = new Socket(SocketType.Stream, ProtocolType.Tcp);
             KeepAliveManager = new KeepAliveManager(this);
         }

@@ -23,7 +23,7 @@ namespace ClashOfClans.Networking
 
         public byte[] ReadByteArray()
         {
-            var length = BinaryReaderExtensions.ReadInt32BigEndian(this);
+            var length = this.ReadInt32BigEndian();
             if (length == -1)
                 return null;
 
