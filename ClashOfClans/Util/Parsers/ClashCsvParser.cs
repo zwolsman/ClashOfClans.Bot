@@ -3,21 +3,21 @@
     public sealed class ClashCsvParser : DataRowParser
     {
         private readonly CsvTable _csvTable;
-
-        protected override int RowCount
-            => _csvTable.Rows.Count;
+        private object _baseRow;
 
         public ClashCsvParser(CsvTable table)
         {
             _csvTable = table;
         }
-        
-        object _baseRow;
+
+        protected override int RowCount
+            => _csvTable.Rows.Count;
+
         protected override T ParseRow<T>(int row)
         {
-            var item = new T();            
-            var parsingProperties = ParseHelper.GetParsingProperties(typeof(T));
-            bool newBase = false;
+            var item = new T();
+            var parsingProperties = ParseHelper.GetParsingProperties(typeof (T));
+            var newBase = false;
 
             foreach (var parsingProperty in parsingProperties)
             {

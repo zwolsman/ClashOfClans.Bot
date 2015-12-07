@@ -4,6 +4,8 @@ namespace ClashOfClans.Util.Parsers
 {
     public abstract class DataRowParser : IParser
     {
+        protected abstract int RowCount { get; }
+
         public IEnumerable<T> Parse<T>() where T : new()
         {
             var list = new List<T>();
@@ -12,8 +14,6 @@ namespace ClashOfClans.Util.Parsers
 
             return list;
         }
-
-        protected abstract int RowCount { get; }
 
         protected abstract T ParseRow<T>(int row) where T : new();
     }

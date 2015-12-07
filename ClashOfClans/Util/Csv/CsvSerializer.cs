@@ -1,39 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using ClashOfClans.Logic.Building;
 using ClashOfClans.Properties;
 
 namespace ClashOfClans.Util.Csv
 {
-
-
     internal class CsvSerializer
     {
-        private static CsvTable buildingTable = new CsvTable(Resources.buildings, true);
+        private static readonly CsvTable buildingTable = new CsvTable(Resources.buildings, true);
+
         public static T Deserialize<T>(int id)
         {
-            
             var instance = Activator.CreateInstance(typeof (T));
-            object[] data = CsvHelper.FindData((BuildingType)(id - 1000000), 0);
-            foreach (PropertyInfo propInfo in typeof (T).GetProperties())
+            var data = CsvHelper.FindData((BuildingType) (id - 1000000), 0);
+            foreach (var propInfo in typeof (T).GetProperties())
             {
-                if(propInfo == null)
+                if (propInfo == null)
                     continue;
                 if (!propInfo.CanWrite)
                     continue;
 
-                string name = propInfo.Name;
+                var name = propInfo.Name;
 
-                int columnIndex = buildingTable.Columns.IndexOf(name);
+                var columnIndex = buildingTable.Columns.IndexOf(name);
                 if (columnIndex == -1)
                     continue;
 
-                string val = data[columnIndex].ToString();
+                var val = data[columnIndex].ToString();
                 if (propInfo.PropertyType == typeof (int))
                 {
                     if (val == "")
@@ -54,7 +47,7 @@ namespace ClashOfClans.Util.Csv
                 Debug.WriteLine("Did not handle property type!");
             }
 
-            return (T)instance;
+            return (T) instance;
         }
     }
 

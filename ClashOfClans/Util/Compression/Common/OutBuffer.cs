@@ -1,14 +1,16 @@
 ﻿// OutBuffer.cs
 
+using System.IO;
+
 namespace ClashOfClans.Util.Compression.Common
 {
     public class OutBuffer
     {
-        byte[] m_Buffer;
-        uint m_Pos;
-        uint m_BufferSize;
-        System.IO.Stream m_Stream;
-        ulong m_ProcessedSize;
+        private readonly byte[] m_Buffer;
+        private readonly uint m_BufferSize;
+        private uint m_Pos;
+        private ulong m_ProcessedSize;
+        private Stream m_Stream;
 
         public OutBuffer(uint bufferSize)
         {
@@ -16,10 +18,25 @@ namespace ClashOfClans.Util.Compression.Common
             m_BufferSize = bufferSize;
         }
 
-        public void SetStream(System.IO.Stream stream) { m_Stream = stream; }
-        public void FlushStream() { m_Stream.Flush(); }
-        public void CloseStream() { m_Stream.Close(); }
-        public void ReleaseStream() { m_Stream = null; }
+        public void SetStream(Stream stream)
+        {
+            m_Stream = stream;
+        }
+
+        public void FlushStream()
+        {
+            m_Stream.Flush();
+        }
+
+        public void CloseStream()
+        {
+            m_Stream.Close();
+        }
+
+        public void ReleaseStream()
+        {
+            m_Stream = null;
+        }
 
         public void Init()
         {
@@ -38,10 +55,13 @@ namespace ClashOfClans.Util.Compression.Common
         {
             if (m_Pos == 0)
                 return;
-            m_Stream.Write(m_Buffer, 0, (int)m_Pos);
+            m_Stream.Write(m_Buffer, 0, (int) m_Pos);
             m_Pos = 0;
         }
 
-        public ulong GetProcessedSize() { return m_ProcessedSize + m_Pos; }
+        public ulong GetProcessedSize()
+        {
+            return m_ProcessedSize + m_Pos;
+        }
     }
 }

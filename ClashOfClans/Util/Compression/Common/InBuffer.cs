@@ -1,16 +1,18 @@
 ﻿// InBuffer.cs
 
+using System.IO;
+
 namespace ClashOfClans.Util.Compression.Common
 {
     public class InBuffer
     {
-        byte[] m_Buffer;
-        uint m_Pos;
-        uint m_Limit;
-        uint m_BufferSize;
-        System.IO.Stream m_Stream;
-        bool m_StreamWasExhausted;
-        ulong m_ProcessedSize;
+        private readonly byte[] m_Buffer;
+        private readonly uint m_BufferSize;
+        private uint m_Limit;
+        private uint m_Pos;
+        private ulong m_ProcessedSize;
+        private Stream m_Stream;
+        private bool m_StreamWasExhausted;
 
         public InBuffer(uint bufferSize)
         {
@@ -18,7 +20,7 @@ namespace ClashOfClans.Util.Compression.Common
             m_BufferSize = bufferSize;
         }
 
-        public void Init(System.IO.Stream stream)
+        public void Init(Stream stream)
         {
             m_Stream = stream;
             m_ProcessedSize = 0;
@@ -32,13 +34,12 @@ namespace ClashOfClans.Util.Compression.Common
             if (m_StreamWasExhausted)
                 return false;
             m_ProcessedSize += m_Pos;
-            int aNumProcessedBytes = m_Stream.Read(m_Buffer, 0, (int)m_BufferSize);
+            var aNumProcessedBytes = m_Stream.Read(m_Buffer, 0, (int) m_BufferSize);
             m_Pos = 0;
-            m_Limit = (uint)aNumProcessedBytes;
+            m_Limit = (uint) aNumProcessedBytes;
             m_StreamWasExhausted = (aNumProcessedBytes == 0);
             return (!m_StreamWasExhausted);
         }
-
 
         public void ReleaseStream()
         {
