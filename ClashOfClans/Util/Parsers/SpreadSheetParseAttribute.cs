@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ClashOfClans.Util.Parsers
 {
@@ -17,6 +18,8 @@ namespace ClashOfClans.Util.Parsers
         ///     <para>Note: this property is a type i.e typeof(DateParseConverter)</para>
         /// </summary>
         public Type Converter { get; set; }
+
+        public string[] ColumnNames { get; set; } 
     }
 
     public interface IParseConverter

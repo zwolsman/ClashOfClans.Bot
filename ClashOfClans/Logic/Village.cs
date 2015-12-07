@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using ClashOfClans.Buildings;
+using ClashOfClans.Data;
 using ClashOfClans.Util.Csv;
-using ClashOfClans.Logic.Building;
+//using ClashOfClans.Logic.Building;
 using ClashOfClans.Networking;
 using ClashOfClans.Properties;
 using log4net;
@@ -36,22 +38,20 @@ namespace ClashOfClans.Logic
                 var json = ZlibStream.UncompressString(compressedJson);
                 if (decompressedLength != json.Length)
                     if (decompressedLength - 1 != json.Length) // to prevent for running in error
-                        throw new InvalidDataException(string.Format("Json length is not valid. {0} != {1}.", decompressedLength, json.Length));
+                        throw new InvalidDataException($"Json length is not valid. {decompressedLength} != {json.Length}.");
 
 
                 dynamic test = new JavaScriptSerializer().Deserialize<dynamic>(json);
-                CsvProvider provider = new CsvProvider();
-                BuildingFactory.RequirementsProvider = provider;
-                BuildingFactory.PropertyProvider = provider;
+                var provider = new CsvBuildingProvider();
 
                 foreach (var building in test["buildings"])
                 {
-                    int id = int.Parse(building["data"].ToString());
-                    BuildingType buildingType = (BuildingType)id;
-                    int level = int.Parse(building["lvl"].ToString());
+                    var id = (int) building["data"];
+                    var buildingType = (BuildingType)id;
+                    var level = (int) building["lvl"];
 
-                    var coolBuilding = BuildingFactory.Create(buildingType, level);
-                    logger.InfoFormat("Building: {0}", coolBuilding);
+                    var coolBuilding = provider.GetBuildingData(buildingType, level);
+                    coolBuilding.Requirements = new CsvBuildRequirementProvider().GetBuildingData(buildingType, level);
 
                 }
                 logger.InfoFormat("Raw json: {0}", json);

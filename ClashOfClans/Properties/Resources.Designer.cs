@@ -22,7 +22,7 @@ namespace ClashOfClans.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ClashOfClans.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClashOfClans.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ClashOfClans.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,19 +61,18 @@ namespace ClashOfClans.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\achievements.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] achievements {
+        public static string achievements {
             get {
-                object obj = ResourceManager.GetObject("achievements", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("achievements", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] buildings {
+        public static byte[] buildings {
             get {
                 object obj = ResourceManager.GetObject("buildings", resourceCulture);
                 return ((byte[])(obj));
@@ -81,62 +80,56 @@ namespace ClashOfClans.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\characters.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] characters {
+        public static string characters {
             get {
-                object obj = ResourceManager.GetObject("characters", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("characters", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\globals.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] globals {
+        public static string globals {
             get {
-                object obj = ResourceManager.GetObject("globals", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("globals", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\missions.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] missions {
+        public static string missions {
             get {
-                object obj = ResourceManager.GetObject("missions", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("missions", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\npcs.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] npcs {
+        public static string npcs {
             get {
-                object obj = ResourceManager.GetObject("npcs", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("npcs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\resources.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] resources {
+        public static string resources {
             get {
-                object obj = ResourceManager.GetObject("resources", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("resources", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to ..\Resources\spells.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089.
         /// </summary>
-        internal static byte[] spells {
+        public static string spells {
             get {
-                object obj = ResourceManager.GetObject("spells", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("spells", resourceCulture);
             }
         }
     }

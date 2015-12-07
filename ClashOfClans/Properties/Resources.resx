@@ -117,29 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="achievements" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="achievements" xml:space="preserve">
     <value>..\Resources\achievements.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buildings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buildings.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="characters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="characters" xml:space="preserve">
     <value>..\Resources\characters.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="globals" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="globals" xml:space="preserve">
     <value>..\Resources\globals.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="missions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="missions" xml:space="preserve">
     <value>..\Resources\missions.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="npcs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="npcs" xml:space="preserve">
     <value>..\Resources\npcs.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="resources" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="resources" xml:space="preserve">
     <value>..\Resources\resources.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="spells" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="spells" xml:space="preserve">
     <value>..\Resources\spells.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

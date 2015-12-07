@@ -1,4 +1,7 @@
-﻿namespace ClashOfClans.Util.Parsers
+﻿using System.Linq;
+using ClashOfClans.Util.Csv;
+
+namespace ClashOfClans.Util.Parsers
 {
     public sealed class ClashCsvParser : DataRowParser
     {
@@ -21,18 +24,25 @@
 
             foreach (var parsingProperty in parsingProperties)
             {
-                var columnIndex = _csvTable.Columns.IndexOf(parsingProperty.ColumnName);
-                var value = GetData(columnIndex, row);
-                if (!newBase && string.IsNullOrEmpty(value))
+                var value = "";
+                if (parsingProperty.Attribute.ColumnNames != null)
                 {
-                    var baseValue = parsingProperty.Property.GetValue(_baseRow);
-                    parsingProperty.Property.SetValue(item, baseValue);
+                    value = parsingProperty.Attribute.ColumnNames.Aggregate(value, (current, columnName)
+                        => current + GetData(columnName, row));
                 }
                 else
                 {
-                    ParseHelper.SetConvertedValue(parsingProperty, item, value);
-                    newBase = true;
+                    value = GetData(parsingProperty.ColumnName, row);
+                    if (!newBase && string.IsNullOrEmpty(value))
+                    {
+                        var baseValue = parsingProperty.Property.GetValue(_baseRow);
+                        parsingProperty.Property.SetValue(item, baseValue);
+                        continue;
+                    }
                 }
+
+                ParseHelper.SetConvertedValue(parsingProperty, item, value);
+                newBase = true;
             }
 
             if (newBase)
@@ -41,8 +51,9 @@
             return item;
         }
 
-        private string GetData(int columnIndex, int rowIndex)
+        private string GetData(string columnName, int rowIndex)
         {
+            var columnIndex = _csvTable.Columns.IndexOf(columnName);
             return _csvTable.Rows[rowIndex].ItemArray[columnIndex].ToString();
         }
     }

@@ -9,5 +9,8 @@ namespace ClashOfClans.Util
             Array.Reverse(b);
             return b;
         }
+
+        internal static string RemoveSpaces(this string input)
+            => input.Replace(" ", "");
     }
 }

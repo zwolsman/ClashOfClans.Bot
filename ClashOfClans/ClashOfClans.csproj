@@ -50,7 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\BuildingClass.cs" />
+    <Compile Include="Buildings\BuildingType.cs" />
+    <Compile Include="Buildings\BuildRequirements.cs" />
+    <Compile Include="Data\CsvBuildingProvider.cs" />
+    <Compile Include="Data\CsvBuildRequirementProvider.cs" />
+    <Compile Include="Data\CsvHelper.cs" />
+    <Compile Include="Data\IBuildingProvider.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Data\IBuildRequirementsProvider.cs" />
+    <Compile Include="Data\ParseConverters\BuildingClassConverter.cs" />
     <Compile Include="Util\Compression\Common\CommandLineParser.cs" />
     <Compile Include="Util\Compression\Common\CRC.cs" />
     <Compile Include="Util\Compression\Common\InBuffer.cs" />
@@ -76,8 +86,6 @@
     <Compile Include="Int24.cs" />
     <Compile Include="KeepAliveManager.cs" />
     <Compile Include="Logic\Avatar.cs" />
-    <Compile Include="Logic\Building\BuildingBase.cs" />
-    <Compile Include="Logic\Building\TownHall.cs" />
     <Compile Include="Logic\Clan.cs" />
     <Compile Include="Logic\Resource.cs" />
     <Compile Include="Logic\ResourceManager.cs" />
@@ -109,7 +117,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Util\BinaryWriterExtensions.cs" />
-    <Compile Include="Util\Creator.cs" />
     <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\Parsers\ClashCsvParser.cs" />
     <Compile Include="Util\Parsers\DataRowParser.cs" />
@@ -132,11 +139,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Logic\Building\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
