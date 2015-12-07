@@ -72,7 +72,7 @@ namespace ClashOfClans.Logic.Building
         {
             var props = new BuildingProperties();
             props.Level = level;
-            var row = CsvHelper.FindData(type, 0);
+            var row = CsvHelper.FindData(type, -1);
             if (row != null)
             {
                 props.Name = row[0].ToString();
