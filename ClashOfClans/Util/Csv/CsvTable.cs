@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using SevenZip;
+using ClashOfClans.Util.Compression;
 
-namespace ClashOfClans.Data.Csv
+namespace ClashOfClans.Util.Csv
 {
     /// <summary>
     /// Represents a Comma Seperated Values(CSV) file as a datatable. 

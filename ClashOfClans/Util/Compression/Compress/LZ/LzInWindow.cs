@@ -2,7 +2,7 @@
 
 using System;
 
-namespace SevenZip.Compression.LZ
+namespace ClashOfClans.Util.Compression.Compress.LZ
 {
     public class InWindow
     {

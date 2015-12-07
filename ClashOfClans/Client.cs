@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using ClashOfClans.Data.Csv;
+using ClashOfClans.Util.Csv;
 using ClashOfClans.Networking;
 using ClashOfClans.Networking.Packets;
 using ClashOfClans.Properties;

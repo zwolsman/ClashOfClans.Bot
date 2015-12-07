@@ -1,11 +1,10 @@
 ﻿// LzmaEncoder.cs
 
 using System;
+using ClashOfClans.Util.Compression.Compress.RangeCoder;
 
-namespace SevenZip.Compression.LZMA
+namespace ClashOfClans.Util.Compression.Compress.LZMA
 {
-    using RangeCoder;
-
     public class Encoder : ICoder, ISetCoderProperties, IWriteCoderProperties
     {
         enum EMatchFinderType

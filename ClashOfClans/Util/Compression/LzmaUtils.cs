@@ -1,8 +1,8 @@
-﻿using SevenZip.Compression.LZMA;
-using System;
+﻿using System;
 using System.IO;
+using ClashOfClans.Util.Compression.Compress.LZMA;
 
-namespace SevenZip
+namespace ClashOfClans.Util.Compression
 {
     //Peter Bromberg's helper code. Big thanks for that.
 

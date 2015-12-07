@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Util.Parsers
+namespace ClashOfClans.Util.Parsers
 {
     public abstract class DataRowParser : IParser
     {

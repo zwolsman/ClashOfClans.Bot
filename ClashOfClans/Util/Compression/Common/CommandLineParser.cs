@@ -3,7 +3,7 @@
 using System;
 using System.Collections;
 
-namespace SevenZip.CommandLineParser
+namespace ClashOfClans.Util.Compression.Common
 {
     public enum SwitchType
     {

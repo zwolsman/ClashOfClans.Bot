@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using ClashOfClans.Data.Csv;
+using ClashOfClans.Util.Csv;
 using ClashOfClans.Logic.Building;
 using ClashOfClans.Networking;
 using ClashOfClans.Properties;

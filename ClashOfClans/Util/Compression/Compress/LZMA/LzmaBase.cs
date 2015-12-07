@@ -1,6 +1,6 @@
 ﻿// LzmaBase.cs
 
-namespace SevenZip.Compression.LZMA
+namespace ClashOfClans.Util.Compression.Compress.LZMA
 {
     internal abstract class Base
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ClashOfClans.Logic.Building;
 using ClashOfClans.Properties;
 
-namespace ClashOfClans.Data.Csv
+namespace ClashOfClans.Util.Csv
 {
 
 

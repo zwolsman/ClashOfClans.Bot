@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClashOfClans.Data.Csv
+namespace ClashOfClans.Util.Csv
 {
     class CsvException : Exception
     {

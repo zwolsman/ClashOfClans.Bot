@@ -1,6 +1,6 @@
 ﻿// InBuffer.cs
 
-namespace SevenZip.Buffer
+namespace ClashOfClans.Util.Compression.Common
 {
     public class InBuffer
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using ClashOfClans.Data.Csv;
+using ClashOfClans.Util.Csv;
 using ClashOfClans.Properties;
 using ClashOfClans.Util;
 

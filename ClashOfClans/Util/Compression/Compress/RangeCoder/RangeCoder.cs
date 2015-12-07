@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SevenZip.Compression.RangeCoder
+namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 {
     class Encoder
     {

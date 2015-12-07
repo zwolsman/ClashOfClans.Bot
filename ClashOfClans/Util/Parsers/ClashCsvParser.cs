@@ -1,6 +1,4 @@
-﻿using Csv;
-
-namespace Util.Parsers
+﻿namespace ClashOfClans.Util.Parsers
 {
     public sealed class ClashCsvParser : DataRowParser
     {

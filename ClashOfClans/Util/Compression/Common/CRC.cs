@@ -1,6 +1,6 @@
 ﻿// Common/CRC.cs
 
-namespace SevenZip
+namespace ClashOfClans.Util.Compression.Common
 {
     class CRC
     {

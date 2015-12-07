@@ -1,6 +1,6 @@
 ﻿// LzOutWindow.cs
 
-namespace SevenZip.Compression.LZ
+namespace ClashOfClans.Util.Compression.Compress.LZ
 {
     public class OutWindow
     {

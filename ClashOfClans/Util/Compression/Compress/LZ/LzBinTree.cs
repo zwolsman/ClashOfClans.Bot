@@ -1,8 +1,9 @@
 ﻿// LzBinTree.cs
 
 using System;
+using ClashOfClans.Util.Compression.Common;
 
-namespace SevenZip.Compression.LZ
+namespace ClashOfClans.Util.Compression.Compress.LZ
 {
     public class BinTree : InWindow, IMatchFinder
     {

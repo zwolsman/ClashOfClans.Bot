@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
-using ClashOfClans.Data.Csv;
+using ClashOfClans.Util.Csv;
 using ClashOfClans.Logic;
 using ClashOfClans.Properties;
 using ClashOfClans.Util;

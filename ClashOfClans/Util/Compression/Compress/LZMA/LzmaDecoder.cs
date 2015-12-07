@@ -1,11 +1,10 @@
 ﻿// LzmaDecoder.cs
 
 using System;
+using ClashOfClans.Util.Compression.Compress.RangeCoder;
 
-namespace SevenZip.Compression.LZMA
+namespace ClashOfClans.Util.Compression.Compress.LZMA
 {
-    using RangeCoder;
-
     public class Decoder : ICoder, ISetDecoderProperties // ,System.IO.Stream
     {
         class LenDecoder
