@@ -7,14 +7,14 @@ namespace ClashOfClans.Util.Compression
     //Peter Bromberg's helper code. Big thanks for that.
 
     /// <summary>
-    /// Provides methods to compress or decompress LZMA <see cref="byte"/> array.
+    ///     Provides methods to compress or decompress LZMA <see cref="byte" /> array.
     /// </summary>
     public static class LzmaUtils
     {
-        private static int Dictionary = 1 << 23;
-        private static bool EndOfStream = false;
+        private static readonly int Dictionary = 1 << 23;
+        private static readonly bool EndOfStream = false;
 
-        private static CoderPropID[] PropertiesIDs =
+        private static readonly CoderPropID[] PropertiesIDs =
         {
             CoderPropID.DictionarySize,
             CoderPropID.PosStateBits,
@@ -23,10 +23,10 @@ namespace ClashOfClans.Util.Compression
             CoderPropID.Algorithm,
             CoderPropID.NumFastBytes,
             CoderPropID.MatchFinder,
-            CoderPropID.EndMarker,
+            CoderPropID.EndMarker
         };
 
-        private static object[] Properties =
+        private static readonly object[] Properties =
         {
             Dictionary,
             2,
@@ -39,11 +39,11 @@ namespace ClashOfClans.Util.Compression
         };
 
         /// <summary>
-        /// Compresses the specified <see cref="byte"/> array into
-        /// LZMA.
+        ///     Compresses the specified <see cref="byte" /> array into
+        ///     LZMA.
         /// </summary>
-        /// <param name="bytes">The <see cref="byte"/> array to compress.</param>
-        /// <returns>The compressed <see cref="byte"/> array.</returns>
+        /// <param name="bytes">The <see cref="byte" /> array to compress.</param>
+        /// <returns>The compressed <see cref="byte" /> array.</returns>
         public static byte[] Compress(byte[] bytes)
         {
             if (bytes == null)
@@ -58,8 +58,8 @@ namespace ClashOfClans.Util.Compression
                     encoder.SetCoderProperties(PropertiesIDs, Properties);
                     encoder.WriteCoderProperties(outStream);
                     var fileSize = inStream.Length;
-                    for (int i = 0; i < 8; i++)
-                        outStream.WriteByte((byte)(fileSize >> (8 * i)));
+                    for (var i = 0; i < 8; i++)
+                        outStream.WriteByte((byte) (fileSize >> (8*i)));
 
                     encoder.Code(inStream, outStream, -1, -1, null);
                     return outStream.ToArray();
@@ -68,11 +68,11 @@ namespace ClashOfClans.Util.Compression
         }
 
         /// <summary>
-        /// Decompresses the specified <see cref="byte"/> into
-        /// LZMA.
+        ///     Decompresses the specified <see cref="byte" /> into
+        ///     LZMA.
         /// </summary>
-        /// <param name="bytes">The <see cref="byte"/> array to decompress.</param>
-        /// <returns>The decompressed <see cref="byte"/> array.</returns>
+        /// <param name="bytes">The <see cref="byte" /> array to decompress.</param>
+        /// <returns>The decompressed <see cref="byte" /> array.</returns>
         public static byte[] Decompress(byte[] bytes)
         {
             if (bytes == null)
@@ -90,13 +90,13 @@ namespace ClashOfClans.Util.Compression
                         throw new Exception("Input .lzma is too short");
 
                     var outSize = 0L;
-                    for (int i = 0; i < 8; i++)
+                    for (var i = 0; i < 8; i++)
                     {
                         var v = inStream.ReadByte();
                         if (v < 0)
                             throw new Exception("Can't Read 1");
 
-                        outSize |= ((long)v) << (8 * i);
+                        outSize |= ((long) v) << (8*i);
                     }
 
                     var compressedSize = inStream.Length - inStream.Position;

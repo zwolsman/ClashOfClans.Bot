@@ -8,7 +8,7 @@ namespace ClashOfClans.Util.Parsers
     internal static class ParseHelper
     {
         private static readonly Dictionary<Type, IParseConverter> _converters;
-        private static object _lock;
+        private static readonly object _lock;
 
         static ParseHelper()
         {
@@ -21,12 +21,12 @@ namespace ClashOfClans.Util.Parsers
             if (_converters.ContainsKey(type))
                 return _converters[type];
 
-            lock(_lock)
+            lock (_lock)
             {
                 if (_converters.ContainsKey(type))
                     return _converters[type];
 
-                var converter = (IParseConverter)Activator.CreateInstance(type);
+                var converter = (IParseConverter) Activator.CreateInstance(type);
                 _converters[type] = converter;
 
                 return converter;
@@ -36,13 +36,13 @@ namespace ClashOfClans.Util.Parsers
         public static IEnumerable<ParseProperty> GetParsingProperties(Type type)
         {
             SpreadSheetParseAttribute attribute = null;
-            return type.GetProperties()                    // get all public properties
-                        .Where(p => TryGetAttribute(p, out attribute))          // those who have the attribute
-                        .Select(p => new ParseProperty
-                        {
-                            Property = p,
-                            Attribute = attribute
-                        });
+            return type.GetProperties() // get all public properties
+                .Where(p => TryGetAttribute(p, out attribute)) // those who have the attribute
+                .Select(p => new ParseProperty
+                {
+                    Property = p,
+                    Attribute = attribute
+                });
         }
 
         public static void SetConvertedValue(ParseProperty parsingProperty, object obj, string value)
@@ -58,7 +58,7 @@ namespace ClashOfClans.Util.Parsers
             }
             else
             {
-                if(!converterType.GetInterfaces().Contains(typeof(IParseConverter)))
+                if (!converterType.GetInterfaces().Contains(typeof (IParseConverter)))
                     throw new InvalidOperationException("Converter doesn't implement IParseConverter");
 
                 var converter = GetParseConverter(converterType);
@@ -74,14 +74,14 @@ namespace ClashOfClans.Util.Parsers
 
         private static bool TryGetAttribute<T>(MemberInfo memberInfo, out T customAttribute) where T : Attribute
         {
-            var attributes = memberInfo.GetCustomAttributes(typeof(T), false).FirstOrDefault();
+            var attributes = memberInfo.GetCustomAttributes(typeof (T), false).FirstOrDefault();
             if (attributes == null)
             {
                 customAttribute = null;
                 return false;
             }
 
-            customAttribute = (T)attributes;
+            customAttribute = (T) attributes;
             return true;
         }
     }
@@ -90,8 +90,8 @@ namespace ClashOfClans.Util.Parsers
     {
         public PropertyInfo Property { get; set; }
         public SpreadSheetParseAttribute Attribute { get; set; }
+
         public string ColumnName
             => Attribute.ColumnName ?? Property.Name;
     }
-
 }

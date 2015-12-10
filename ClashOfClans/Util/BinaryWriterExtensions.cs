@@ -5,13 +5,13 @@ namespace ClashOfClans.Util
 {
     public static class BinaryWriterExtensions
     {
-        public static void WriteBigEndian(this BinaryWriter writer, Int16 value)
+        public static void WriteBigEndian(this BinaryWriter writer, short value)
         {
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, UInt16 value)
+        public static void WriteBigEndian(this BinaryWriter writer, ushort value)
         {
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);
@@ -19,47 +19,47 @@ namespace ClashOfClans.Util
 
         public static void Write(this BinaryWriter writer, Int24 value)
         {
-            var buffer = (byte[])value;
+            var buffer = (byte[]) value;
             ProcessBytes(writer, buffer);
         }
 
         public static void Write(this BinaryWriter writer, UInt24 value)
         {
-            var buffer = (byte[])value;
+            var buffer = (byte[]) value;
             ProcessBytes(writer, buffer);
         }
 
         public static void WriteBigEndian(this BinaryWriter writer, Int24 value)
         {
-            var buffer = (byte[])value;
+            var buffer = (byte[]) value;
             ProcessBytes(writer, buffer.Reversed());
         }
 
         public static void WriteBigEndian(this BinaryWriter writer, UInt24 value)
         {
-            var buffer = (byte[])value;
+            var buffer = (byte[]) value;
             ProcessBytes(writer, buffer.Reversed());
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, Int32 value)
+        public static void WriteBigEndian(this BinaryWriter writer, int value)
         {
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, UInt32 value)
+        public static void WriteBigEndian(this BinaryWriter writer, uint value)
         {
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, Int64 value)
+        public static void WriteBigEndian(this BinaryWriter writer, long value)
         {
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);
         }
 
-        public static void WriteBigEndian(this BinaryWriter writer, UInt64 value)
+        public static void WriteBigEndian(this BinaryWriter writer, ulong value)
         {
             var buffer = BitConverter.GetBytes(value);
             ProcessBytes(writer, buffer);

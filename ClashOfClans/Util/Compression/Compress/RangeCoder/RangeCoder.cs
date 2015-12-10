@@ -1,21 +1,18 @@
-﻿using System;
+﻿using System.IO;
 
 namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 {
-    class Encoder
+    internal class Encoder
     {
         public const uint kTopValue = (1 << 24);
-
-        System.IO.Stream Stream;
-
-        public UInt64 Low;
+        private byte _cache;
+        private uint _cacheSize;
+        public ulong Low;
         public uint Range;
-        uint _cacheSize;
-        byte _cache;
+        private long StartPosition;
+        private Stream Stream;
 
-        long StartPosition;
-
-        public void SetStream(System.IO.Stream stream)
+        public void SetStream(Stream stream)
         {
             Stream = stream;
         }
@@ -37,7 +34,7 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 
         public void FlushData()
         {
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
                 ShiftLow();
         }
 
@@ -53,7 +50,7 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 
         public void Encode(uint start, uint size, uint total)
         {
-            Low += start * (Range /= total);
+            Low += start*(Range /= total);
             Range *= size;
             while (Range < kTopValue)
             {
@@ -64,24 +61,23 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 
         public void ShiftLow()
         {
-            if ((uint)Low < (uint)0xFF000000 || (uint)(Low >> 32) == 1)
+            if ((uint) Low < 0xFF000000 || (uint) (Low >> 32) == 1)
             {
-                byte temp = _cache;
+                var temp = _cache;
                 do
                 {
-                    Stream.WriteByte((byte)(temp + (Low >> 32)));
+                    Stream.WriteByte((byte) (temp + (Low >> 32)));
                     temp = 0xFF;
-                }
-                while (--_cacheSize != 0);
-                _cache = (byte)(((uint)Low) >> 24);
+                } while (--_cacheSize != 0);
+                _cache = (byte) (((uint) Low) >> 24);
             }
             _cacheSize++;
-            Low = ((uint)Low) << 8;
+            Low = ((uint) Low) << 8;
         }
 
         public void EncodeDirectBits(uint v, int numTotalBits)
         {
-            for (int i = numTotalBits - 1; i >= 0; i--)
+            for (var i = numTotalBits - 1; i >= 0; i--)
             {
                 Range >>= 1;
                 if (((v >> i) & 1) == 1)
@@ -96,7 +92,7 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 
         public void EncodeBit(uint size0, int numTotalBits, uint symbol)
         {
-            uint newBound = (Range >> numTotalBits) * size0;
+            var newBound = (Range >> numTotalBits)*size0;
             if (symbol == 0)
                 Range = newBound;
             else
@@ -114,28 +110,28 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
         public long GetProcessedSizeAdd()
         {
             return _cacheSize +
-                Stream.Position - StartPosition + 4;
+                   Stream.Position - StartPosition + 4;
             // (long)Stream.GetProcessedSize();
         }
     }
 
-    class Decoder
+    internal class Decoder
     {
         public const uint kTopValue = (1 << 24);
-        public uint Range;
         public uint Code;
+        public uint Range;
         // public Buffer.InBuffer Stream = new Buffer.InBuffer(1 << 16);
-        public System.IO.Stream Stream;
+        public Stream Stream;
 
-        public void Init(System.IO.Stream stream)
+        public void Init(Stream stream)
         {
             // Stream.Init(stream);
             Stream = stream;
 
             Code = 0;
             Range = 0xFFFFFFFF;
-            for (int i = 0; i < 5; i++)
-                Code = (Code << 8) | (byte)Stream.ReadByte();
+            for (var i = 0; i < 5; i++)
+                Code = (Code << 8) | (byte) Stream.ReadByte();
         }
 
         public void ReleaseStream()
@@ -153,7 +149,7 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
         {
             while (Range < kTopValue)
             {
-                Code = (Code << 8) | (byte)Stream.ReadByte();
+                Code = (Code << 8) | (byte) Stream.ReadByte();
                 Range <<= 8;
             }
         }
@@ -162,29 +158,29 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
         {
             if (Range < kTopValue)
             {
-                Code = (Code << 8) | (byte)Stream.ReadByte();
+                Code = (Code << 8) | (byte) Stream.ReadByte();
                 Range <<= 8;
             }
         }
 
         public uint GetThreshold(uint total)
         {
-            return Code / (Range /= total);
+            return Code/(Range /= total);
         }
 
         public void Decode(uint start, uint size, uint total)
         {
-            Code -= start * Range;
+            Code -= start*Range;
             Range *= size;
             Normalize();
         }
 
         public uint DecodeDirectBits(int numTotalBits)
         {
-            uint range = Range;
-            uint code = Code;
+            var range = Range;
+            var code = Code;
             uint result = 0;
-            for (int i = numTotalBits; i > 0; i--)
+            for (var i = numTotalBits; i > 0; i--)
             {
                 range >>= 1;
                 /*
@@ -195,13 +191,13 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
                     result |= 1;
                 }
                 */
-                uint t = (code - range) >> 31;
+                var t = (code - range) >> 31;
                 code -= range & (t - 1);
                 result = (result << 1) | (1 - t);
 
                 if (range < kTopValue)
                 {
-                    code = (code << 8) | (byte)Stream.ReadByte();
+                    code = (code << 8) | (byte) Stream.ReadByte();
                     range <<= 8;
                 }
             }
@@ -212,7 +208,7 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
 
         public uint DecodeBit(uint size0, int numTotalBits)
         {
-            uint newBound = (Range >> numTotalBits) * size0;
+            var newBound = (Range >> numTotalBits)*size0;
             uint symbol;
             if (Code < newBound)
             {
@@ -228,7 +224,5 @@ namespace ClashOfClans.Util.Compression.Compress.RangeCoder
             Normalize();
             return symbol;
         }
-
-        // ulong GetProcessedSize() {return Stream.GetProcessedSize(); }
     }
 }

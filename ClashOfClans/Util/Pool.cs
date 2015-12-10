@@ -5,11 +5,12 @@ namespace ClashOfClans.Util
 {
     internal sealed class Pool<T>
     {
-        private readonly ConcurrentBag<T> _internalBag;
         private readonly Func<T> _generator;
+        private readonly ConcurrentBag<T> _internalBag;
 
         public Pool() : this(Activator.CreateInstance<T>)
-        { }
+        {
+        }
 
         public Pool(Func<T> generator)
         {

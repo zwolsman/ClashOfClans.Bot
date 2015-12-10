@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClashOfClans.Util.Csv
 {
-
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public sealed class CsvPropertyAttribute : Attribute
     {
         public CsvPropertyAttribute(string name)
         {
             PropertyName = name;
         }
-        public string PropertyName { get; set; }
 
+        public string PropertyName { get; set; }
     }
 }
