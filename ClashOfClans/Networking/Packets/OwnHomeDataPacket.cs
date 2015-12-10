@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
@@ -258,6 +259,7 @@ namespace ClashOfClans.Networking.Packets
             Unknown26 = reader.ReadInt32BigEndian();
             Unknown27 = reader.ReadInt32BigEndian();
             Unknown28 = reader.ReadInt32BigEndian();
+            
         }
 
         public void WritePacket(ClashBinaryWriter writer)

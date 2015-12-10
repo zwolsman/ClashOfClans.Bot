@@ -50,8 +50,21 @@ namespace ClashOfClans.Logic
                     BuildingType buildingType = (BuildingType)id;
                     int level = int.Parse(building["lvl"].ToString());
 
+                    if (buildingType == BuildingType.GoldMine || buildingType == BuildingType.ElixirPump)
+                    {
+                        //TODO refactor shit
+                        double[] collector_max = { 500, 1000, 1500, 2500, 10000, 20000, 30000, 50000, 75000, 100000, 150000, 200000 };
+                        double[] collector_ph = { 200, 400, 600, 800, 1000, 1300, 1600, 1900, 2200, 2500, 3000, 3500 };
+                        int collectedTime = int.Parse(building["res_time"].ToString());
+                        var _timedif = (collector_max[level] / collector_ph[level] * 3600) - collectedTime;
+                        int collected = (int)Math.Round(_timedif * (collector_ph[level] / 3600));
+
+                        //logger.Debug(building);
+                        logger.DebugFormat("Type: {0}, res_time: {1}, level: {2}, collected: {3}", buildingType, building["res_time"], level, collected);
+                    }
+
                     var coolBuilding = BuildingFactory.Create(buildingType, level);
-                    logger.InfoFormat("Building: {0}", coolBuilding);
+                    //logger.InfoFormat("Building: {0}", coolBuilding);
 
                 }
                 logger.InfoFormat("Raw json: {0}", json);

@@ -14,8 +14,9 @@ namespace ClashOfClans.ClientInstance
     {
         static void Main(string[] args)
         {
+            
             Console.WriteLine("Starting up..");
-            string server = "gamea.clashofclans.com";
+            string server = "game.clashofclans.com";
             int port = 9339;
             Client client = new Client();
 
@@ -26,7 +27,7 @@ namespace ClashOfClans.ClientInstance
             Console.ForegroundColor = ConsoleColor.White;
             
             
-            Thread.Sleep(-1);
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }
